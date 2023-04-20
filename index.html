@@ -1,8 +1,85 @@
-<p>Hello 大家好</p>
-<p>我是霸都丶傲天，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="en">
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二维码生成</title>
+    <style>
+        #qrcode,
+		#text {
+			max-width: 1024px;
+		}
+		#text {
+			width: 95%;
+		}
+        img {
+            border: 1px #ddd solid;
+        }
+	</style>
+</head>
+
+<body>
+
+    <center>
+        <h2>
+            <a href="https://affping.com/to/buyjms" target="_blank">
+                [AD] 不会被封的 V2RAY 服务推荐！
+            </a>
+        </h2>
+        <textarea id="text" type="text" placeholder="请输入内容" rows="23.333" cols="23.333"></textarea>
+        <p id="qrcode"></p>
+        <p>
+            提醒，此网页由 Github Page服务提供，<a href="https://github.com/233boy/tools" target="_blank" rel="noopener noreferrer">源代码在这里</a>
+        </p>
+    </center>
+
+    <script src="./jquery-qrcode.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/combine/npm/jquery@2.2.4/dist/jquery.min.js,gh/lrsjng/jquery-qrcode@0.14.0/dist/jquery-qrcode.min.js"></script> -->
+    <script type="text/javascript">
+        $(function () {
+
+            function qr(text) {
+                var options = {
+                    render: 'canvas',
+                    size: 300,
+                    ecLevel: 'Q',
+                    fill: '#233',
+                    background: null,
+                    text: text,
+                    label: '233 Blog',
+                    fontname: 'sans',
+                    fontcolor: '#233',
+                    quiet: 0,
+                    mode: 2
+                };
+                $("#qrcode").empty().qrcode(options);
+            }
+
+
+
+            if (window.location.hash) {
+                var v = window.location.hash.substring(1);
+                text.value = v;
+                qr(v) || setTimeout(function(){qr(v);}, 1000);
+            }
+
+            // auto focus
+            text.focus()
+            $("#text").on("input", function (e) {
+                var v = $(e.target).val();
+                window.location.hash = v;
+                if (v === "") {
+                    qrcode.innerHTML = '尼玛。。。没有内容生成个蛋啊。。。。'
+                } else {
+                    qr(v);
+                }
+            })
+        })
+
+        // "serviceWorker"in navigator&&navigator.serviceWorker.register("/tools/sw.js");
+    </script>
+</body>
+
+</html>
