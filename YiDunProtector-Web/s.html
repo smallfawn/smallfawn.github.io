@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="myDiv"></div>
+    <!--<script src="https://h5.zjol.com.cn/material/qy_redEnvelopesAll/YiDunProtector-Web-1.0.2.js"></script>-->
+    <script src="./web.js"></script>
+    <script>
+      const g = createNEGuardian({
+        appId: "YD00333944567367",
+        timeout: 1000,
+      });
+      console.log(g);
+      function getToken2() {
+        return new Promise((resolve) => {
+          let r = g.getToken("6fa5cea632541841540ccc895b903e39");
+
+          resolve(r);
+        })
+      }
+      function get() {
+        return 8;
+      }
+      //getToken2();
+      /*g.getToken("6fa5cea632541841540ccc895b903e39").then((n) => {
+        // 获取div的引用
+        var myDiv = document.getElementById("myDiv");
+
+        // 处理完的内容
+        var processedContent = JSON.stringify(n);
+
+        // 将处理完的内容插入到div中
+        myDiv.innerHTML = processedContent;
+      });*/
+    </script>
+  </body>
+</html>
