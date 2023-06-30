@@ -9,26 +9,27 @@
         //var phoneNumber = $("#phoneNumber").val();
         let ajaxRequest;
         $(document).ready(function () {
-            $("#stopButton").click(function () { 
+            $("#stopButton").click(function () {
                 console.log(6);
 
                 if (ajaxRequest) {
-                ajaxRequest.abort();
-                console.log(ajaxRequest.abort());
-            }
+                    ajaxRequest.abort();
+                    console.log(ajaxRequest.abort());
+                }
             })
         })
 
         var str = "";
         $(document).ready(function () {
             $("#sendSMS").click(function () {
-                var phoneNumber = $("#phoneNumber").val();
+                /*var phoneNumber = $("#phoneNumber").val();
                 str = phoneNumber;
                 if (phoneNumber.length != 11) {
                     alert("请输入有效的手机号码！");
                     console.log(phoneNumber);
                     return;
                 }
+                
                 $.ajax({
                     url: `https://hk1.monika.love/OpenEthan/SMSBoom/master/GETAPI.json`, // 发送短信的后端处理文件
                     method: "GET",
@@ -48,7 +49,7 @@
                         console.log();
                     },
                 });
-
+                
                 $.ajax({
                     url: `https://hk1.monika.love/OpenEthan/SMSBoom/master/api.json`, // 发送短信的后端处理文件
                     method: "GET",
@@ -68,9 +69,34 @@
                         //alert("发送短信时出错！");
                         console.log();
                     },
-                });
+                });*/
             });
         });
+
+        function get() {
+            var phoneNumber = $("#phoneNumber").val();
+            str = phoneNumber;
+            $.ajax({
+                url: `https://hk1.monika.love/OpenEthan/SMSBoom/master/GETAPI.json`, // 发送短信的后端处理文件
+                method: "GET",
+                //data: { phoneNumber: phoneNumber },
+                success: async function (response) {
+                    //alert("短信已发送！");
+                    console.log(response);
+                    try {
+                        response = JSON.parse(response);
+                    } catch (error) { }
+                    for (let i = 0; i < response.length; i++) {
+                        await SMSBoomGET(response[i], str);
+                    }
+                },
+                error: function () {
+                    //alert("发送短信时出错！");
+                    console.log();
+                },
+            });
+        }
+
         function SMSBoomGET(api, phoneNumber) {
             //console.log(api);
             let url = api.replaceAll("[phone]", phoneNumber);
