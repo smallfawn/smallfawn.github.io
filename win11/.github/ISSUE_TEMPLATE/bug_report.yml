@@ -1,0 +1,42 @@
+name: 问题反馈
+description: 如果它不工作！请告诉我！
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - inwinter04
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间填写此错误报告!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么?
+      description: 再告诉我们，你期望发生什么?
+      placeholder: 告诉我们你看到了什么!
+      value: "发生了一个错误!"
+    validations:
+      required: true
+  - type: textarea
+    id: Reproduce
+    attributes:
+      label: 如何复现这个问题
+      description: 复现这个问题的步骤
+      placeholder: opened store
+      value: "复现！"
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: 您在什么浏览器上遇到这个问题?
+      multiple: false
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other Browser
+    validations:
+      required: true
