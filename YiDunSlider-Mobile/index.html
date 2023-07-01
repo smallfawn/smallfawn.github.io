@@ -1,264 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta name="renderer" content="webkit" />
-    <meta name="baidu-site-verification" content="We9ZpV0QoV" />
-    <title>验证码服务_新一代行为式验证码_网易易盾</title>
-    <meta name="description" content="网易易盾反垃圾服务,22年专业的反垃圾经验，为客户提供极速智能的文本、图片、视频反垃圾云服务。" />
-    <meta name="keywords" content="反垃圾服务,智能反垃圾,网易易盾" />
-    <link rel="shortcut icon" href="/public/res/favicon.ico" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "宋体", helvetic, "Hiragino Sans GB";
-        }
-
-        .hide {
-            display: none;
-        }
-
-        .m-pban {
-            position: relative;
-            width: 100%;
-            height: 178px;
-            background: url(/public/res/trial/click_ban.png) no-repeat center center;
-            background-size: cover;
-            text-align: center;
-        }
-
-        .m-pban .pban_cnt {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 178px;
-        }
-
-        .m-pban .pban_tt {
-            padding-top: 53px;
-            margin-bottom: 15px;
-            font-size: 28px;
-            color: #fff;
-        }
-
-        .m-pban .pban_stt {
-            display: inline-block;
-            width: 270px;
-            text-align: center;
-            line-height: 18px;
-            font-size: 12px;
-            color: #fff;
-        }
-
-        .m-trial {
-            width: 84%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .m-trial h2 {
-            margin-top: 8%;
-            margin-bottom: 4%;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .m-suc {
-            display: none;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-
-        .m-suc .u-suc {
-            display: inline-block;
-            width: 72px;
-            height: 72px;
-            background: url(/public/res/trial/suc.png) no-repeat center center;
-            background-size: cover;
-            margin-top: 113px;
-            margin-bottom: 20px;
-        }
-
-        .m-suc .ttl {
-            margin-bottom: 15px;
-            font-size: 20px;
-            line-height: 1;
-            color: #333333;
-        }
-
-        .m-suc .txt {
-            margin-bottom: 40px;
-            font-size: 12px;
-            line-height: 1;
-            color: #999999;
-        }
-
-        .m-suc .u-btn {
-            display: inline-block;
-            width: 92%;
-            line-height: 44px;
-            height: 44px;
-            margin-left: 4%;
-            margin-right: 4%;
-            border-radius: 2px;
-            text-decoration: none;
-            font-size: 17px;
-            background: #2e90e6;
-            color: #fff;
-        }
-
-        .g-bd:after {
-            content: "";
-            display: block;
-            width: 100%;
-            padding-top: 48%;
-        }
-
-        .g-ft {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-
-        .g-ft .ttl {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .g-ft .ttl a {
-            text-decoration: none;
-            color: #666666;
-        }
-
-        .m-ft {
-            width: 100%;
-            height: 46px;
-            margin-top: 15px;
-            background: #2e3133;
-        }
-
-        .m-ft p {
-            line-height: 46px;
-            font-size: 12px;
-            color: #5e6266;
-        }
-    </style>
-
-    <script>
-        !function (e, n, t, s, c) { var r = void 0 !== t && t.resolve, a = e[s]; (a = e[s] = function () { this.modules = {} }).callbacks = [], a.ready = r ? function () { return a.instance ? t.resolve(a.instance.vars()) : new t(function (e) { return a.callbacks.push(e) }) } : function (e) { return a.instance ? e(a.instance.vars()) : a.callbacks.push(e) }; var i = n.createElement(c), u = n.getElementsByTagName(c)[0]; i.async = !0, i.src = "https://s6.music.126.net/puzzle/puzzle@0011EA.js", u.parentNode.insertBefore(i, u) }(window, document, window.Promise, "puzzle", "script");
-    </script>
-
-    <script>
-        var _hmt = _hmt || [];
-
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?4671c5d502135636b837050ec6d716ce";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-
-    </script>
-    <script>
-        var exp = new Date(), from
-        var search = decodeURIComponent(location.search.slice(1)).split('&')
-        for (var i = 0; i < search.length; i++) {
-            var query = search[i].split('=')
-            if (query[0] === 'from') {
-                from = query[1]
-                break
-            }
-        }
-        if (!!from) {
-            exp.setTime(exp.getTime() + 1000 * 24 * 60 * 60 * 1000)
-            document.cookie = 'from=' + encodeURIComponent(from) + ';domain=.' + location.hostname + ';path=/;expires=' +
-                exp.toGMTString()
-        }
-    </script>
-    <script type="text/javascript">
-        (function (document, datracker, root) { function loadJsSDK() { var script, first_script; script = document.createElement("script"); script.type = "text/javascript"; script.async = true; script.src = "https://hubble-js-bucket.nosdn.127.net/DATracker.globals.1.6.12.8.js"; first_script = document.getElementsByTagName("script")[0]; first_script.parentNode.insertBefore(script, first_script) } if (!datracker["__SV"]) { var win = window; var gen_fn, functions, i, lib_name = "DATracker"; window[lib_name] = datracker; datracker["_i"] = []; datracker["init"] = function (token, config, name) { var target = datracker; if (typeof (name) !== "undefined") { target = datracker[name] = [] } else { name = lib_name } target["people"] = target["people"] || []; target["abtest"] = target["abtest"] || []; target["toString"] = function (no_stub) { var str = lib_name; if (name !== lib_name) { str += "." + name } if (!no_stub) { str += " (stub)" } return str }; target["people"]["toString"] = function () { return target.toString(1) + ".people (stub)" }; function _set_and_defer(target, fn) { var split = fn.split("."); if (split.length == 2) { target = target[split[0]]; fn = split[1] } target[fn] = function () { target.push([fn].concat(Array.prototype.slice.call(arguments, 0))) } } functions = "get_user_id track_heatmap register_attributes register_attributes_once clear_attributes unregister_attributes current_attributes single_pageview disable time_event get_appStatus track set_userId track_pageview track_links track_forms register register_once alias unregister identify login logout signup name_tag set_config reset people.set people.set_once people.set_realname people.set_country people.set_province people.set_city people.set_age people.set_gender people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.set_populationWithAccount  people.set_location people.set_birthday people.set_region people.set_account abtest.get_variation abtest.async_get_variable".split(" "); for (i = 0; i < functions.length; i++) { _set_and_defer(target, functions[i]) } datracker["_i"].push([token, config, name]) }; datracker["__SV"] = 1.6; loadJsSDK() } })(document, window["DATracker"] || [], window);
-        // 初始化
-        // 注意： 在Hubble平台创建一个类型为`Web`应用，复制对应的appkey，替换下面的 `88888888`
-        // truncateLength:上报数据字段的长度设置
-        // persistence: 存储到本地的方式
-        // cross_subdomain_cookie : 若是存储到cookie，是否支持跨二级域
-        DATracker.init('MA-93D5-9AD06EA4329A', { truncateLength: 255, persistence: "localStorage", cross_subdomain_cookie: false });
-    </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>验证码接入示例</title>
+  <script src="https://cstaticdun.126.net/load.min.js"></script>
 </head>
 
 <body>
+  <div>
+    <div id="captcha"></div>
+    <button id="login">登录</button>
+  </div>
+  <script>
+    (function () {
+      var captchaIns;
+      initNECaptcha({
+        element: '#captcha',
+        captchaId: 'eda6d7f57cf54b5d8f9b0ed24e5b6e66',//官方演示demo
+        width: '320px',
+        mode: 'popup',
+        apiVersion: 2,
+        popupStyles: {
+          position: 'fixed',
+          top: '20%'
+        },
+        onVerify: function (err, data) {
+          /**
+           * 第一个参数是err（Error的实例），验证失败才有err对象
+           * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
+           * {
+           *   validate: 'xxxxx' // 二次验证信息
+           * }
+           **/
+          if (err) return // 当验证失败时，内部会自动refresh方法，无需手动再调用一次
 
-
-
-    <div class="g-doc">
-        <div class="g-bn">
-            <div class="m-pban m-pban-drag">
-                <div class="pban_cnt">
-                    <h1 class="pban_tt">滑动拼图验证码</h1>
-                    <p class="pban_stt">流畅优质的用户体验，仅需轻轻滑动完成拼图，即可进行安全验证</p>
-                </div>
-            </div>
-        </div>
-        <div class="g-bd">
-            <div class="m-trial">
-                <h2>移动端体验</h2>
-                <div class="cnt">
-                    <div id="j-captcha"></div>
-                </div>
-            </div>
-        </div>
-        <div class="g-ft">
-            <p class="ttl">更多网页端验证码体验，请使用电脑访问<a href="https://dun.163.com">dun.163.com</a></p>
-            <div class="m-ft">
-                <p>© 1997-2017 网易公司版权所有</p>
-            </div>
-        </div>
-    </div>
-    <div class="m-suc">
-        <i class="u-suc"></i>
-        <h2 class="ttl">验证成功！</h2>
-        <p class="txt">通过易小盾的验证用户可以进行下一步操作</p>
-        <a href="/trial/jigsaw-wap" class="u-btn">返回</a>
-    </div>
-
-
-
-    <script src="https://cstaticdun.126.net/load.min.js"></script>
-
-    <script>
-        var initCaptcha = function () {
-            var clientWidth = document.documentElement.clientWidth,
-                CAPTCHA_ID = 'eda6d7f57cf54b5d8f9b0ed24e5b6e66',
-                CAPTCHA_WIDTH = parseInt(clientWidth * 0.84)
-            var suc = document.querySelector('.m-suc'),
-                cont = document.querySelector('.g-doc')
-            var options = {
-                element: '#j-captcha',
-                captchaId: CAPTCHA_ID,
-                mode: 'embed',
-                width: CAPTCHA_WIDTH + 'px',
-                onVerify: function (error, data) {
-                    if (!error) {
-                        cont.style.display = 'none'
-                        suc.style.display = 'block'
-                    }
-                }
-            }
-            initNECaptcha(options)
+          // 点击登录按钮后可调用服务端接口，以下为伪代码，仅作示例用
+          ajax('/login', {
+            username: $('#username').val(),
+            password: $('#password').val(),
+            validate: data.validate
+          }, function onsuccess(data) {
+            // if (loginFail) {
+            // 密码错误等原因导致登录失败，业务上若需要刷新验证码，可调用refresh方法
+            //   captchaIns && captchaIns.refresh()
+            // } else {
+            // 登录成功后，相关处理逻辑
+            // }
+          })
         }
-        initCaptcha()
-    </script>
+      }, function onload(instance) {
+        captchaIns = instance
+      }, function onerror(err) {
+        console.warn(err)
+      })
 
+      var loginBtn = document.getElementById('login')
+      loginBtn.addEventListener('click', function () {
+        captchaIns && captchaIns.verify()
+      })
+    })();
+  </script>
 </body>
 
 </html>
