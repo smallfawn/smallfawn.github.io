@@ -13,6 +13,7 @@
     <div>
         <div id="captcha"></div>
         <button id="login">登录</button>
+        <div id="result"></div>
     </div>
     <script>
         (function () {
@@ -36,12 +37,16 @@
                      * }
                      **/
                     if (err) return // 当验证失败时，内部会自动refresh方法，无需手动再调用一次
+                    var resultDiv = document.getElementById("result");
 
+                    // 给div标签添加内容
+                    resultDiv.innerHTML = `滑块返回result ${data['validate']}`;
                     // 点击登录按钮后可调用服务端接口，以下为伪代码，仅作示例用
                     ajax('/login', {
                         username: $('#username').val(),
                         password: $('#password').val(),
-                        validate: data.validate
+                        validate: data.validate,
+
                     }, function onsuccess(data) {
                         // if (loginFail) {
                         // 密码错误等原因导致登录失败，业务上若需要刷新验证码，可调用refresh方法
