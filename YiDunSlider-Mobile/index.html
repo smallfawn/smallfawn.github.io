@@ -2,67 +2,67 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>验证码接入示例</title>
-  <script src="https://cstaticdun.126.net/load.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证码接入示例</title>
+    <script src="https://cstaticdun.126.net/load.min.js"></script>
 </head>
 
 <body>
-  <div>
-    <div id="captcha"></div>
-    <button id="login">登录</button>
-  </div>
-  <script>
-    (function () {
-      var captchaIns;
-      initNECaptcha({
-        element: '#captcha',
-        captchaId: 'eda6d7f57cf54b5d8f9b0ed24e5b6e66',//官方演示demo
-        width: '320px',
-        mode: 'popup',
-        apiVersion: 2,
-        popupStyles: {
-          position: 'fixed',
-          top: '20%'
-        },
-        onVerify: function (err, data) {
-          /**
-           * 第一个参数是err（Error的实例），验证失败才有err对象
-           * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
-           * {
-           *   validate: 'xxxxx' // 二次验证信息
-           * }
-           **/
-          if (err) return // 当验证失败时，内部会自动refresh方法，无需手动再调用一次
+    <div>
+        <div id="captcha"></div>
+        <button id="login">登录</button>
+    </div>
+    <script>
+        (function () {
+            var captchaIns;
+            initNECaptcha({
+                element: '#captcha',
+                captchaId: 'eda6d7f57cf54b5d8f9b0ed24e5b6e66',//官方演示demo
+                width: '320px',
+                mode: 'popup',
+                apiVersion: 2,
+                popupStyles: {
+                    position: 'fixed',
+                    top: '20%'
+                },
+                onVerify: function (err, data) {
+                    /**
+                     * 第一个参数是err（Error的实例），验证失败才有err对象
+                     * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
+                     * {
+                     *   validate: 'xxxxx' // 二次验证信息
+                     * }
+                     **/
+                    if (err) return // 当验证失败时，内部会自动refresh方法，无需手动再调用一次
 
-          // 点击登录按钮后可调用服务端接口，以下为伪代码，仅作示例用
-          ajax('/login', {
-            username: $('#username').val(),
-            password: $('#password').val(),
-            validate: data.validate
-          }, function onsuccess(data) {
-            // if (loginFail) {
-            // 密码错误等原因导致登录失败，业务上若需要刷新验证码，可调用refresh方法
-            //   captchaIns && captchaIns.refresh()
-            // } else {
-            // 登录成功后，相关处理逻辑
-            // }
-          })
-        }
-      }, function onload(instance) {
-        captchaIns = instance
-      }, function onerror(err) {
-        console.warn(err)
-      })
+                    // 点击登录按钮后可调用服务端接口，以下为伪代码，仅作示例用
+                    ajax('/login', {
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        validate: data.validate
+                    }, function onsuccess(data) {
+                        // if (loginFail) {
+                        // 密码错误等原因导致登录失败，业务上若需要刷新验证码，可调用refresh方法
+                        //   captchaIns && captchaIns.refresh()
+                        // } else {
+                        // 登录成功后，相关处理逻辑
+                        // }
+                    })
+                }
+            }, function onload(instance) {
+                captchaIns = instance
+            }, function onerror(err) {
+                console.warn(err)
+            })
 
-      var loginBtn = document.getElementById('login')
-      loginBtn.addEventListener('click', function () {
-        captchaIns && captchaIns.verify()
-      })
-    })();
-  </script>
+            var loginBtn = document.getElementById('login')
+            loginBtn.addEventListener('click', function () {
+                captchaIns && captchaIns.verify()
+            })
+        })();
+    </script>
 </body>
 
 </html>
