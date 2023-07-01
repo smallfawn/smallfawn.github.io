@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数美滑动验证码DEMO</title>
+    <!-- 下面这个只是demo的样式，正式接入无需引入下面这个css -->
+    <link rel="stylesheet" href="https://castatic.fengkongcloud.cn/pr/v1.0.4/style/demo.css">
+</head>
+
+<body>
+    <form class="shumei_captcha_demo_form" id="shumei_captcha_form">
+        <div class="shumei_form_item">
+            <label>用户名</label>
+            <input type="text" name="account" placeholder="请输入您的账号" />
+        </div>
+
+        <div class="shumei_form_item">
+            <label>密码</label>
+            <input type="text" name="password" placeholder="请输入您的密码" />
+        </div>
+        <div class="shumei_form_item">
+            <label style="vertical-align: top">验证码</label>
+            <span id="shumei_form_captcha_wrapper">滑动验证码加载中...</span>
+        </div>
+        <div class="shumei_form_item">
+            <label></label>
+            <a class="shumei_login_btn" href="###">立即登录</a>
+        </div>
+    </form>
+    <div id="captcha"></div>
+</body>
+<!-- demo 操作方便使用，验证码 SDK 不依赖任何第三方库 -->
+<script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.js"></script>
+<!-- 验证码核心入口js，web验证码只需要引入下面一个js，当前最新版本是1.0.4 -->
+<script src="https://castatic.fengkongcloud.cn/pr/v1.0.4/smcp.min.js"></script>
+<script>
+    $(function () {
+        var $body = $('body');
+        var $form = $body.find('#shumei_captcha_form');
+        var captchaId = 'shumei_form_captcha_wrapper';
+        var $subBtn = $body.find('.shumei_login_btn');
+
+        /**
+         *      数美验证码回调
+         *      @param SMCaptcha
+         */
+        function smCaptchaCallback(SMCaptcha) {
+            // 当前生命周期的uuid，业务端埋点的话建议加上这个字段，到时可以根据这个字段通过日志查询定位问题
+            var captchaUuid = SMCaptcha.captchaUuid;
+
+            // 将验证结果插入到页面form表单内
+            SMCaptcha.bindForm($form[0]);
+
+            // 全部资源加载成功后
+            SMCaptcha.onReady(function (dom, params) {
+                // params中有type字段，'init'-初始化后 | 'refresh'-手动刷新图片后 | 'afterFail'-验证失败后
+                console.log('onReady', params);
+            });
+
+            // 验证码校验情况回调
+            SMCaptcha.onSuccess(function (data) {
+                // data格式：{rid: "2017080810405655b3377d25de478233", pass: false}
+                console.log(data);
+                if (data.pass) {
+                    // 验证通过后
+                }
+                else {
+                    // 验证失败后
+                }
+            });
+
+            // 资源加载异常,建议开发时进行监听,便于查询错误
+            SMCaptcha.onError(function (errType, errMsg) {
+                // errType格式: 'SERVER_ERROR'
+                // errMsg格式: {code: 2002, message: " 服 务 器 异 常 : 无 权 限 操 作 (invalid organization)"}
+                console.log('onError', errType, errMsg);
+            });
+
+            SMCaptcha.onClose(function () {
+                console.log('关闭弹框了');
+            });
+
+            // 监听按钮
+            $subBtn.on('click', function (e) {
+                e.preventDefault();
+                var account = $body.find('[name=account]').val();
+                var password = $body.find('[name=password]').val();
+                var result = SMCaptcha.getResult();
+
+                var rid = result.rid;
+                var pass = result.pass;
+
+                if (pass) {
+                    console.log('账号: ' + account + '\n 密码: ' + password + '\n 验证码: ' + rid);
+                }
+                else {
+                    console.log('请选择验证码');
+                }
+            });
+        }
+
+        // 初始化验证码
+        initSMCaptcha({
+            organization: 'd6tpAY1oV0Kv5jRSgxQr',
+            appendTo: captchaId,
+            /*product: 'popup', // 展现形式，具体选项见下表
+            mode: 'slide', // 验证码模式，具体选项见下表
+            appendTo: 'captcha', // 验证码dom元素的id，*/
+        }, smCaptchaCallback);
+    });
+</script>
+
+</html>
