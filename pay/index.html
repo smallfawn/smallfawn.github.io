@@ -15,7 +15,7 @@
         var imgTag = document.getElementById("img");
         function isWeChatBrowser() {
             var ua = navigator.userAgent.toLowerCase();
-            showDiv.innerHTML = ua;
+            //showDiv.innerHTML = ua;
             return ua.indexOf('micromessenger') !== -1;
 
         }
@@ -23,7 +23,7 @@
         // 判断是否为支付宝浏览器
         function isAlipayBrowser() {
             var ua = navigator.userAgent.toLowerCase();
-            showDiv.innerHTML = ua;
+            //showDiv.innerHTML = ua;
             return ua.indexOf('alipay') !== -1;
         }
 
@@ -39,7 +39,6 @@
             } else if (isAlipayBrowser()) {
                 // 支付宝扫码的逻辑
                 console.log('支付宝扫码');
-
                 alert('支付宝扫码')
                 imgTag.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/smallfawn/Note@main/Images/clzfb.png'>";
                 // TODO: 其他处理代码
@@ -47,8 +46,7 @@
                 // 其他浏览器的逻辑
                 console.log('其他浏览器');
                 alert('其他浏览器')
-                imgTag.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/smallfawn/Note@main/Images/clwx.png'>";
-
+                
                 // TODO: 其他处理代码
             }
         }
