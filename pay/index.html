@@ -10,7 +10,7 @@
 <body>
     <div id="show"></div>
     <div id="img"></div>
-    <a href="wxp://f2f0jv_eMj2I9m58FXz9iVdt0NDeOYDsKwFdN6Y4ZzwlKMSrm2Cp8DtI-cp-cT9fxKxq">wx</a>
+    <button onclick="openwx()">打开微信</button>
     <script>
         var showDiv = document.getElementById("show");
         var imgTag = document.getElementById("img");
@@ -20,7 +20,13 @@
             return ua.indexOf('micromessenger') !== -1;
 
         }
-
+        function openwx() {
+            open = function () {
+                var url = window.location.href;
+                setTimeout(function () { window.location.href = "weixin://wxpay/f2f0jv_eMj2I9m58FXz9iVdt0NDeOYDsKwFdN6Y4ZzwlKMSrm2Cp8DtI-cp-cT9fxKxq" }, 1000);
+            }
+            open()
+        }
         // 判断是否为支付宝浏览器
         function isAlipayBrowser() {
             var ua = navigator.userAgent.toLowerCase();
@@ -35,7 +41,6 @@
                 console.log('微信扫码');
                 alert('微信扫码')
                 window.location.href = 'wxp://f2f0jv_eMj2I9m58FXz9iVdt0NDeOYDsKwFdN6Y4ZzwlKMSrm2Cp8DtI-cp-cT9fxKxq';
-
                 imgTag.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/smallfawn/Note@main/Images/clwx.png'>";
 
                 // TODO: 识别微信收款码的处理代码
@@ -50,8 +55,8 @@
             } else {
                 // 其他浏览器的逻辑
                 console.log('其他浏览器');
-                alert('其他浏览器')
-                window.location.href = 'wxp://f2f0jv_eMj2I9m58FXz9iVdt0NDeOYDsKwFdN6Y4ZzwlKMSrm2Cp8DtI-cp-cT9fxKxq';
+                //alert('其他浏览器')
+                window.location.href = 'weixin://';
 
                 // TODO: 其他处理代码
             }
