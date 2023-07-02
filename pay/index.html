@@ -9,13 +9,15 @@
 
 <body>
     <div id="show"></div>
+    <div id="img"></div>
     <script>
         var showDiv = document.getElementById("show");
-
+        var imgTag = document.getElementById("img");
         function isWeChatBrowser() {
             var ua = navigator.userAgent.toLowerCase();
             showDiv.innerHTML = ua;
             return ua.indexOf('micromessenger') !== -1;
+
         }
 
         // 判断是否为支付宝浏览器
@@ -31,11 +33,15 @@
                 // 微信扫码，识别微信收款码的逻辑
                 console.log('微信扫码');
                 alert('微信扫码')
+                imgTag.innerHTML = "<img src='https://ghproxy.com/https://raw.githubusercontent.com/smallfawn/Note/main/Images/clwx.png.jpg'>";
+
                 // TODO: 识别微信收款码的处理代码
             } else if (isAlipayBrowser()) {
                 // 支付宝扫码的逻辑
                 console.log('支付宝扫码');
+
                 alert('支付宝扫码')
+                imgTag.innerHTML = "<img src='https://ghproxy.com/https://raw.githubusercontent.com/smallfawn/Note/main/Images/clzfb.png'>";
                 // TODO: 其他处理代码
             } else {
                 // 其他浏览器的逻辑
