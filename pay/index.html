@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="show"></div>
+    <script>
+        var showDiv = document.getElementById("show");
+
+        function isWeChatBrowser() {
+            var ua = navigator.userAgent.toLowerCase();
+            showDiv.innerHTML = ua;
+            return ua.indexOf('micromessenger') !== -1;
+        }
+
+        // 判断是否为支付宝浏览器
+        function isAlipayBrowser() {
+            var ua = navigator.userAgent.toLowerCase();
+            showDiv.innerHTML = ua;
+            return ua.indexOf('alipay') !== -1;
+        }
+
+        // 判断扫码类型并识别收款码
+        function scanQRCode() {
+            if (isWeChatBrowser()) {
+                // 微信扫码，识别微信收款码的逻辑
+                console.log('微信扫码');
+                alert('微信扫码')
+                // TODO: 识别微信收款码的处理代码
+            } else if (isAlipayBrowser()) {
+                // 支付宝扫码的逻辑
+                console.log('支付宝扫码');
+                alert('支付宝扫码')
+                // TODO: 其他处理代码
+            } else {
+                // 其他浏览器的逻辑
+                console.log('其他浏览器');
+                alert('其他浏览器')
+                // TODO: 其他处理代码
+            }
+        }
+
+        // 调用扫码函数
+        scanQRCode();
+    </script>
+</body>
+
+</html>
