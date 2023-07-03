@@ -2,51 +2,75 @@
 <html>
 
 <head>
-    <title>Encode Example</title>
-    <script src="./jjencode.js"></script> <!-- 引入jjencode.js -->
-    <script src="./aaencode.js"></script> <!-- 引入aaencode.js -->
-    <script src="./js-alpha-encode.js"></script> <!-- 引入jsalphaencode.js -->
+    <title>JSCODE - JavaScript代码在线加密</title>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+    <script src="./jjencode.js"></script>
+    <!-- 引入jjencode.js -->
+    <script src="./aaencode.js"></script>
+    <!-- 引入aaencode.js -->
+    <script src="./js-alpha-encode.js"></script>
+    <!-- 引入jsalphaencode.js -->
 </head>
 
 <body>
-    <select id="encodeType" onchange="showSecondInput()"> <!-- 选择加密类型 -->
-        <option value="aaencode">AAEncode</option> <!-- AAEncode选项 -->
-        <option value="jjencode">JJEncode</option> <!-- JJEncode选项 -->
-        <option value="jsalpha">JSAlpha</option> <!-- JSAlpha选项 -->
-    </select>
-    <br>
-    <input type="text" id="txtInput"> <!-- 输入待加密的文本 -->
-    <br>
-    <div id="secondInputDiv" style="display: none;"> <!-- 第二个输入框（仅在选择JJEncode时可见） -->
-        <input type="text" id="txtSecondInput">
+    <div class="container">
+        <h1>JSCODE - JavaScript代码在线加密</h1>
+        <div class="form-group">
+            <label for="encodeType">选择加密类型</label>
+            <select id="encodeType" class="form-control" onchange="showSecondInput()">
+                <option value="aaencode">AAEncode</option>
+                <option value="jjencode">JJEncode</option>
+                <option value="jsalpha">JSAlpha</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="txtInput">输入待加密的文本</label>
+            <input type="text" id="txtInput" class="form-control" />
+        </div>
+        <div id="secondInputDiv" style="display: none" class="form-group">
+            <label for="txtSecondInput">第二个输入框（仅在选择JJEncode时可见）</label>
+            <input type="text" id="txtSecondInput" class="form-control" />
+        </div>
+        <button onclick="executeEncode()" class="btn btn-primary">加密</button>
+        <div class="form-group">
+            <label for="output">Output:</label>
+            <div id="output" class="form-control"></div>
+        </div>
+        <div class="form-group">
+            <label for="txtDecodeInput">输入待解密的文本</label>
+            <input type="text" id="txtDecodeInput" class="form-control" />
+        </div>
+        <button id="decodeButton" onclick="executeDecode()" class="btn btn-primary">
+            解密
+        </button>
+        <button onclick="copyOutput()" class="btn btn-primary">复制</button>
     </div>
-    <button onclick="executeEncode()">加密</button> <!-- 执行加密 -->
-    <br>
-    <label>Output:</label>
-    <div id="output"></div> <!-- 显示加密结果 -->
-    <br>
-    <input type="text" id="txtDecodeInput"> <!-- 输入待解密的文本 -->
-    <button id="decodeButton" onclick="executeDecode()" style="display: none;">解密</button> <!-- 执行解密 -->
-    <br>
-    <button onclick="copyOutput()">复制</button> <!-- 复制加密结果 -->
 
     <script>
         function showSecondInput() {
             var encodeType = document.getElementById("encodeType").value; // 获取加密类型
             var secondInputDiv = document.getElementById("secondInputDiv"); // 获取第二个输入框
 
-            if (encodeType === "jjencode") { // 如果选择了JJEncode
+            if (encodeType === "jjencode") {
+                // 如果选择了JJEncode
                 secondInputDiv.style.display = "block"; // 显示第二个输入框
-                document.getElementById("decodeButton").setAttribute("onclick", "executeJJDecode()"); // 设置解密按钮的onclick事件为executeJJDecode()
+                document
+                    .getElementById("decodeButton")
+                    .setAttribute("onclick", "executeJJDecode()"); // 设置解密按钮的onclick事件为executeJJDecode()
+                document.getElementById("decodeButton").style.display = "inline-block"; // 显示解密按钮
             } else {
                 secondInputDiv.style.display = "none"; // 隐藏第二个输入框
-                document.getElementById("decodeButton").setAttribute("onclick", "executeDecode()"); // 设置解密按钮的onclick事件为executeDecode()
+                document
+                    .getElementById("decodeButton")
+                    .setAttribute("onclick", "executeDecode()"); // 设置解密按钮的onclick事件为executeDecode()
+                document.getElementById("decodeButton").style.display = "inline-block"; // 显示解密按钮
             }
 
-            if (encodeType === "jsalpha") { // 如果选择了JSAlpha
+            if (encodeType === "jsalpha") {
+                // 如果选择了JSAlpha
                 document.getElementById("decodeButton").style.display = "none"; // 隐藏解密按钮
-            } else {
-                document.getElementById("decodeButton").style.display = "inline-block"; // 显示解密按钮
             }
         }
 
@@ -55,12 +79,15 @@
             var txtInput = document.getElementById("txtInput").value; // 获取待加密的文本
             var encodedValue;
 
-            if (encodeType === "jjencode") { // 如果选择了JJEncode
+            if (encodeType === "jjencode") {
+                // 如果选择了JJEncode
                 var txtSecondInput = document.getElementById("txtSecondInput").value; // 获取第二个输入框的值
                 encodedValue = jjencode(txtInput, txtSecondInput); // 使用JJEncode加密
-            } else if (encodeType === "aaencode") { // 如果选择了AAEncode
+            } else if (encodeType === "aaencode") {
+                // 如果选择了AAEncode
                 encodedValue = aaencode(txtInput); // 使用AAEncode加密
-            } else if (encodeType === "jsalpha") { // 如果选择了JSAlpha
+            } else if (encodeType === "jsalpha") {
+                // 如果选择了JSAlpha
                 encodedValue = jsalphaencode(txtInput); // 使用JSAlpha加密
             }
 
