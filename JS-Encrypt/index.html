@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Encode Example</title>
+    <script src="./jjencode.js"></script> <!-- 引入jjencode.js -->
+    <script src="./aaencode.js"></script> <!-- 引入aaencode.js -->
+    <script src="./js-alpha-encode.js"></script> <!-- 引入jsalphaencode.js -->
+</head>
+
+<body>
+    <select id="encodeType" onchange="showSecondInput()"> <!-- 选择加密类型 -->
+        <option value="aaencode">AAEncode</option> <!-- AAEncode选项 -->
+        <option value="jjencode">JJEncode</option> <!-- JJEncode选项 -->
+        <option value="jsalpha">JSAlpha</option> <!-- JSAlpha选项 -->
+    </select>
+    <br>
+    <input type="text" id="txtInput"> <!-- 输入待加密的文本 -->
+    <br>
+    <div id="secondInputDiv" style="display: none;"> <!-- 第二个输入框（仅在选择JJEncode时可见） -->
+        <input type="text" id="txtSecondInput">
+    </div>
+    <button onclick="executeEncode()">加密</button> <!-- 执行加密 -->
+    <br>
+    <label>Output:</label>
+    <div id="output"></div> <!-- 显示加密结果 -->
+    <br>
+    <input type="text" id="txtDecodeInput"> <!-- 输入待解密的文本 -->
+    <button id="decodeButton" onclick="executeDecode()" style="display: none;">解密</button> <!-- 执行解密 -->
+    <br>
+    <button onclick="copyOutput()">复制</button> <!-- 复制加密结果 -->
+
+    <script>
+        function showSecondInput() {
+            var encodeType = document.getElementById("encodeType").value; // 获取加密类型
+            var secondInputDiv = document.getElementById("secondInputDiv"); // 获取第二个输入框
+
+            if (encodeType === "jjencode") { // 如果选择了JJEncode
+                secondInputDiv.style.display = "block"; // 显示第二个输入框
+                document.getElementById("decodeButton").setAttribute("onclick", "executeJJDecode()"); // 设置解密按钮的onclick事件为executeJJDecode()
+            } else {
+                secondInputDiv.style.display = "none"; // 隐藏第二个输入框
+                document.getElementById("decodeButton").setAttribute("onclick", "executeDecode()"); // 设置解密按钮的onclick事件为executeDecode()
+            }
+
+            if (encodeType === "jsalpha") { // 如果选择了JSAlpha
+                document.getElementById("decodeButton").style.display = "none"; // 隐藏解密按钮
+            } else {
+                document.getElementById("decodeButton").style.display = "inline-block"; // 显示解密按钮
+            }
+        }
+
+        function executeEncode() {
+            var encodeType = document.getElementById("encodeType").value; // 获取加密类型
+            var txtInput = document.getElementById("txtInput").value; // 获取待加密的文本
+            var encodedValue;
+
+            if (encodeType === "jjencode") { // 如果选择了JJEncode
+                var txtSecondInput = document.getElementById("txtSecondInput").value; // 获取第二个输入框的值
+                encodedValue = jjencode(txtInput, txtSecondInput); // 使用JJEncode加密
+            } else if (encodeType === "aaencode") { // 如果选择了AAEncode
+                encodedValue = aaencode(txtInput); // 使用AAEncode加密
+            } else if (encodeType === "jsalpha") { // 如果选择了JSAlpha
+                encodedValue = jsalphaencode(txtInput); // 使用JSAlpha加密
+            }
+
+            document.getElementById("output").innerHTML = encodedValue; // 显示加密结果
+        }
+
+        function executeDecode() {
+            var txtDecodeInput = document.getElementById("txtDecodeInput").value; // 获取待解密的文本
+            var decodedValue = aadecode(txtDecodeInput); // 使用AAEncode解密
+            document.getElementById("output").innerHTML = decodedValue; // 显示解密结果
+        }
+
+        function executeJJDecode() {
+            var txtDecodeInput = document.getElementById("txtDecodeInput").value; // 获取待解密的文本
+            var decodedValue = jjdecode(txtDecodeInput); // 使用JJEncode解密
+            console.log(decodedValue); // 在控制台输出解密结果
+            document.getElementById("output").innerHTML = decodedValue; // 显示解密结果
+        }
+
+        function copyOutput() {
+            var output = document.getElementById("output"); // 获取加密结果的元素
+            var copiedText = output.textContent; // 获取文本内容
+
+            var textarea = document.createElement("textarea"); // 创建一个临时的textarea元素
+            textarea.value = copiedText; // 将文本内容赋值给textarea的value属性
+            document.body.appendChild(textarea); // 将textarea元素添加到文档中
+            textarea.select(); // 选中textarea中的文本
+            document.execCommand("copy"); // 执行复制操作
+            document.body.removeChild(textarea); // 从文档中移除textarea元素
+        }
+    </script>
+</body>
+
+</html>
