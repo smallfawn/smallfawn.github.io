@@ -12,6 +12,8 @@
     <!-- 引入aaencode.js -->
     <script src="./js/js-alpha-encode.js"></script>
     <!-- 引入jsalphaencode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
+    <!-- 引入crypto-js -->
 </head>
 
 <body>
@@ -46,6 +48,25 @@
             解密
         </button>
         <button onclick="copyOutput()" class="btn btn-primary">复制</button>
+        <hr>
+        <h2>数据加密</h2>
+        <div class="form-group">
+            <label for="dataEncryptType">选择加密类型</label>
+            <select id="dataEncryptType" class="form-control">
+                <option value="md5">MD5</option>
+                <option value="sha256">SHA256</option>
+                <option value="sha1">SHA1</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dataInput">输入待加密的数据</label>
+            <input type="text" id="dataInput" class="form-control" />
+        </div>
+        <button onclick="executeDataEncrypt()" class="btn btn-primary">加密</button>
+        <div class="form-group">
+            <label for="dataOutput">Output:</label>
+            <div id="dataOutput" class="form-control"></div>
+        </div>
     </div>
 
     <script>
@@ -117,6 +138,24 @@
             textarea.select(); // 选中textarea中的文本
             document.execCommand("copy"); // 执行复制操作
             document.body.removeChild(textarea); // 从文档中移除textarea元素
+        }
+
+        function executeDataEncrypt() {
+            var dataEncryptType = document.getElementById("dataEncryptType").value; // 获取加密类型
+            var dataInput = document.getElementById("dataInput").value; // 获取待加密的数据
+            var encryptedValue;
+
+            if (dataEncryptType === "md5") {
+                // 如果选择了MD5
+                encryptedValue = CryptoJS.MD5(dataInput).toString(); // 使用MD5加密
+            } else if (dataEncryptType === "sha256") {
+                // 如果选择了SHA256
+                encryptedValue = CryptoJS.SHA256(dataInput).toString(); // 使用SHA256加密
+            } else if (dataEncryptType === "sha1") {
+                // 如果选择了SHA1
+                encryptedValue = CryptoJS.SHA1(dataInput).toString(); // 使用SHA1加密
+            }
+            document.getElementById("dataOutput").innerHTML = encryptedValue; // 显示加密结果
         }
     </script>
 </body>
