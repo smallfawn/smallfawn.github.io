@@ -1,5 +1,9 @@
 function jjencode(text, prefix) {
     console.log(prefix);
+    if(!prefix){
+        alert('第二个参数不可为空')
+        return 
+    }
     //var gv = 'fpa';
     var gv = prefix;
     var r = "";
