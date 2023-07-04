@@ -88,76 +88,102 @@
       var appList = [
         {
           href: "../Tools/jsencode/index.html",
-          target: "_blank",
-          imgSrc: "img/png/AppStore.png",
-          title: "JavaScript 代码在线加密工具",
+          target: "_blank", imgSrc: "img/png/AppStore.png", title: "JavaScript 代码在线加密工具",
         },
         {
           href: "../Games/MineCraft/Eaglercraft.html",
-          target: "_blank",
-          imgSrc: "img/png/iCloud-Drive.png",
-          title: "在线 MineCraft",
+          target: "_blank", imgSrc: "img/png/iCloud-Drive.png", title: "在线 MineCraft",
         },
         {
-          href: "../Games/ADarkRoom/index.html",
-          target: "_blank",
-          imgSrc: "img/png/Music.png",
-          title: "小黑屋 游戏",
+          href: "../Games/ADarkRoom/index.html", target: "_blank", imgSrc: "img/png/Music.png", title: "小黑屋 游戏",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Photos.png",
-          title: "流金岁月",
+          target: "_blank", imgSrc: "img/png/Photos.png", title: "流金岁月",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Videos.png",
-          title: "欣赏影片",
+          target: "_blank", imgSrc: "img/png/Videos.png", title: "欣赏影片",
         },
         {
           href: "http://yuancheng.xunlei.com/",
-          target: "_blank",
-          imgSrc: "img/png/Thunder.png",
-          title: "迅雷远程",
+          target: "_blank", imgSrc: "img/png/Thunder.png", title: "迅雷远程",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Downloads.png",
-          title: "下载管理",
+          target: "_blank", imgSrc: "img/png/Downloads.png", title: "下载管理",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Transmission.png",
-          title: "Transmission",
+          target: "_blank", imgSrc: "img/png/Transmission.png", title: "Transmission",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Settings.png",
-          title: "DSM管理",
+          target: "_blank", imgSrc: "img/png/Settings.png", title: "DSM管理",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/FontExplorer-X.png",
-          title: "管理文件",
+          target: "_blank", imgSrc: "img/png/FontExplorer-X.png", title: "管理文件",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Podcats.png",
-          title: "管理路由器",
+          target: "_blank", imgSrc: "img/png/Podcats.png", title: "管理路由器",
         },
         {
           href: "#",
-          target: "_blank",
-          imgSrc: "img/png/FaceTime.png",
-          title: "监控系统",
+          target: "_blank", imgSrc: "img/png/FaceTime.png", title: "监控系统",
         },
+      ];
+      // 定义appList1数组，包含第二组应用的相关信息
+      var appList1 = [
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/AppStore.png", title: "我的博客"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/iCloud-Drive.png", title: "VPS Status"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Music.png", title: "聆听音乐"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Photos.png", title: "流金岁月"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Videos.png", title: "欣赏影片"
+        },
+        {
+          href: "http://yuancheng.xunlei.com/",
+          target: "_blank", imgSrc: "img/png/Thunder.png", title: "迅雷远程"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Downloads.png", title: "下载管理"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Transmission.png", title: "Transmission"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Settings.png", title: "DSM管理"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/FontExplorer-X.png", title: "管理文件"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/Podcats.png", title: "管理路由器"
+        },
+        {
+          href: "#",
+          target: "_blank", imgSrc: "img/png/FaceTime.png", title: "监控系统"
+        }
       ];
 
       // 获取appList元素
@@ -189,82 +215,6 @@
       appList.forEach(function (app) {
         appListElement.appendChild(createAppElement(app));
       });
-
-      // 定义appList1数组，包含第二组应用的相关信息
-      var appList1 = [
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/AppStore.png",
-          title: "我的博客"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/iCloud-Drive.png",
-          title: "VPS Status"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Music.png",
-          title: "聆听音乐"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Photos.png",
-          title: "流金岁月"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Videos.png",
-          title: "欣赏影片"
-        },
-        {
-          href: "http://yuancheng.xunlei.com/",
-          target: "_blank",
-          imgSrc: "img/png/Thunder.png",
-          title: "迅雷远程"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Downloads.png",
-          title: "下载管理"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Transmission.png",
-          title: "Transmission"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Settings.png",
-          title: "DSM管理"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/FontExplorer-X.png",
-          title: "管理文件"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/Podcats.png",
-          title: "管理路由器"
-        },
-        {
-          href: "#",
-          target: "_blank",
-          imgSrc: "img/png/FaceTime.png",
-          title: "监控系统"
-        }
-      ];
 
       // 遍历appList1数组，创建并添加应用元素到appListElement1中
       appList1.forEach(function (app) {
@@ -393,7 +343,7 @@
         <!--<img class="logo" src="img/logo.png"/>-->
         <p></p>
         <div class="type-js headline">
-          <h1 class="text-js">Welcome</h1>
+          <h1 class="text-js">SmallFawn</h1>
         </div>
         <div class="" id="kg-btn">
           <input class="tgl tgl-flip" id="qieh" type="checkbox" />
@@ -418,7 +368,7 @@
     <div class="footer-contents">
       <div class="links">
         <div class="line">
-          <a href="/">NasHomeCloud</a>&nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/smallfawn/QLScriptPublic">SmallFawn JS-Script-Repository 脚本仓库</a>&nbsp;&nbsp;&nbsp;
           <span class="footer-link-separator"></span>&nbsp;&nbsp;&nbsp;
           <span class="copyright">╰(*°▽°*)╯</span>
         </div>
