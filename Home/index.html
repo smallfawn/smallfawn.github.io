@@ -81,6 +81,196 @@
     <canvas class="particles-js-canvas-el" height="960" style="width: 100%; height: 100%" width="1303"></canvas>
   </div>
   <script>
+    // 定义包含链接和文本的数组
+    /* 确保Dom元素加载完成后再开始渲染 */
+    window.onload = function () {
+      // 定义appList数组，包含应用的相关信息
+      var appList = [
+        {
+          href: "../Tools/jsencode/index.html",
+          target: "_blank",
+          imgSrc: "img/png/AppStore.png",
+          title: "JavaScript 代码在线加密工具",
+        },
+        {
+          href: "../Games/MineCraft/Eaglercraft.html",
+          target: "_blank",
+          imgSrc: "img/png/iCloud-Drive.png",
+          title: "在线 MineCraft",
+        },
+        {
+          href: "../Games/ADarkRoom/index.html",
+          target: "_blank",
+          imgSrc: "img/png/Music.png",
+          title: "小黑屋 游戏",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Photos.png",
+          title: "流金岁月",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Videos.png",
+          title: "欣赏影片",
+        },
+        {
+          href: "http://yuancheng.xunlei.com/",
+          target: "_blank",
+          imgSrc: "img/png/Thunder.png",
+          title: "迅雷远程",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Downloads.png",
+          title: "下载管理",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Transmission.png",
+          title: "Transmission",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Settings.png",
+          title: "DSM管理",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/FontExplorer-X.png",
+          title: "管理文件",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Podcats.png",
+          title: "管理路由器",
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/FaceTime.png",
+          title: "监控系统",
+        },
+      ];
+
+      // 获取appList元素
+      var appListElement = document.getElementById("appList");
+      var appListElement1 = document.getElementById("appList1");
+
+      // 创建应用元素的函数
+      function createAppElement(app) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        var img = document.createElement("img");
+        var strong = document.createElement("strong");
+
+        // 设置应用元素的属性
+        a.href = app.href;
+        a.target = app.target;
+        img.src = app.imgSrc;
+        strong.textContent = app.title;
+
+        // 将子元素添加到父元素中
+        a.appendChild(img);
+        a.appendChild(strong);
+        li.appendChild(a);
+
+        return li;
+      }
+
+      // 遍历appList数组，创建并添加应用元素到appListElement中
+      appList.forEach(function (app) {
+        appListElement.appendChild(createAppElement(app));
+      });
+
+      // 定义appList1数组，包含第二组应用的相关信息
+      var appList1 = [
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/AppStore.png",
+          title: "我的博客"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/iCloud-Drive.png",
+          title: "VPS Status"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Music.png",
+          title: "聆听音乐"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Photos.png",
+          title: "流金岁月"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Videos.png",
+          title: "欣赏影片"
+        },
+        {
+          href: "http://yuancheng.xunlei.com/",
+          target: "_blank",
+          imgSrc: "img/png/Thunder.png",
+          title: "迅雷远程"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Downloads.png",
+          title: "下载管理"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Transmission.png",
+          title: "Transmission"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Settings.png",
+          title: "DSM管理"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/FontExplorer-X.png",
+          title: "管理文件"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/Podcats.png",
+          title: "管理路由器"
+        },
+        {
+          href: "#",
+          target: "_blank",
+          imgSrc: "img/png/FaceTime.png",
+          title: "监控系统"
+        }
+      ];
+
+      // 遍历appList1数组，创建并添加应用元素到appListElement1中
+      appList1.forEach(function (app) {
+        appListElement1.appendChild(createAppElement(app));
+      });
+    }
     console.log("😄");
     console.log("⚡ Powered by SmallFawn.");
     particlesJS("particles-js", {
@@ -214,132 +404,11 @@
     <div id="main">
       <!-- 外网访问地址 -->
       <div class="app animated fadeInLeft" id="app">
-        <ul>
-          <li>
-            <a href="../Tools/jsencode/index.html" target="_blank">
-              <img class="shake" src="img/png/AppStore.png" />
-              <strong>JavaScript 代码在线加密工具</strong></a>
-          </li>
-          <li>
-            <a href="../Games/MineCraft/Eaglercraft.html" target="_blank">
-              <img class="shake" src="img/png/iCloud-Drive.png" />
-              <strong>在线 MineCraft</strong></a>
-          </li>
-          <li>
-            <a href="../Games/ADarkRoom/index.html" target="_blank">
-              <img class="shake" src="img/png/Music.png" />
-              <strong>小黑屋 游戏</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Photos.png" />
-              <strong>流金岁月</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Videos.png" />
-              <strong>欣赏影片</strong></a>
-          </li>
-          <li>
-            <a href="http://yuancheng.xunlei.com/" target="_blank">
-              <img class="shake" src="img/png/Thunder.png" />
-              <strong>迅雷远程</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Downloads.png" />
-              <strong>下载管理</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Transmission.png" />
-              <strong>Transmission</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Settings.png" />
-              <strong>DSM管理</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/FontExplorer-X.png" />
-              <strong>管理文件</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Podcats.png" />
-              <strong>管理路由器</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/FaceTime.png" />
-              <strong>监控系统</strong></a>
-          </li>
-        </ul>
+        <ul id="appList"></ul>
       </div>
       <!-- 内网网访问地址 -->
       <div class="app animated fadeInRight" id="app1">
-        <ul>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/AppStore.png" />
-              <strong>我的博客</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/iCloud-Drive.png" />
-              <strong>VPS Status</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Music.png" />
-              <strong>聆听音乐</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Photos.png" />
-              <strong>流金岁月</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Videos.png" />
-              <strong>欣赏影片</strong></a>
-          </li>
-          <li>
-            <a href="http://yuancheng.xunlei.com/" target="_blank">
-              <img class="shake" src="img/png/Thunder.png" />
-              <strong>迅雷远程</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Downloads.png" />
-              <strong>下载管理</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Transmission.png" />
-              <strong>Transmission</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Settings.png" />
-              <strong>DSM管理</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/FontExplorer-X.png" />
-              <strong>管理文件</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/Podcats.png" />
-              <strong>管理路由器</strong></a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img class="shake" src="img/png/FaceTime.png" />
-              <strong>监控系统</strong></a>
-          </li>
+        <ul id="appList1"></ul>
         </ul>
       </div>
       <div style="clear: both"></div>
@@ -357,20 +426,5 @@
     </div>
   </div>
 </body>
-<!--以下代码为内外网自动切换功能，如需要请打开注释-->
-<!--<script type="text/javascript">
-  $(function () {
-    $.ajax({
-      'url': './lan.php',
-      type:"get",
-      dataType:"json",
-      success: function(result) {
-        if (result.lan) {
-          $('#qieh').click();
-        }
-      }
-    });
-  });
-</script>-->
 
 </html>
