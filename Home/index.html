@@ -81,6 +81,12 @@
     <canvas class="particles-js-canvas-el" height="960" style="width: 100%; height: 100%" width="1303"></canvas>
   </div>
   <script>
+    function tip() {
+      console.log("😄");
+      console.log("⚡ Powered by SmallFawn.");
+      //return ["😄","⚡ Powered by SmallFawn."]
+    }
+    tip()
     // 定义包含链接和文本的数组
     /* 确保Dom元素加载完成后再开始渲染 */
     window.onload = function () {
@@ -221,8 +227,7 @@
         appListElement1.appendChild(createAppElement(app));
       });
     }
-    console.log("😄");
-    console.log("⚡ Powered by SmallFawn.");
+
     particlesJS("particles-js", {
       particles: {
         number: {
@@ -368,7 +373,8 @@
     <div class="footer-contents">
       <div class="links">
         <div class="line">
-          <a href="https://github.com/smallfawn/QLScriptPublic">SmallFawn JS-Script-Repository 脚本仓库</a>&nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/smallfawn/QLScriptPublic">SmallFawn JS-Script-Repository
+            脚本仓库</a>&nbsp;&nbsp;&nbsp;
           <span class="footer-link-separator"></span>&nbsp;&nbsp;&nbsp;
           <span class="copyright">╰(*°▽°*)╯</span>
         </div>
