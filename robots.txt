@@ -1,0 +1,5 @@
+
+User-agent:*
+Disallow:
+
+Sitemap: https://smallfawn.github.io/blog/sitemap.xml
