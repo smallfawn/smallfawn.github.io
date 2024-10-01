@@ -9,7 +9,7 @@ import hitokotoPlugin from "@smallfawn/vuepress-plugin-hitokoto";
 import analyticsPlugin from "@smallfawn/vuepress-plugin-analytics";
 
 export default defineUserConfig({
-  base: "/blog/",
+  base: "/",
   lang: "zh-CN",
   plugins: [
     googleAdSensePlugin({
