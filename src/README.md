@@ -45,5 +45,4 @@ footer: 关注我 带你彻底学会逆向
 <busuanzi/>
 <br/>
 <br/>
-<watermark text="smallfawn" fontSize="16">关注我 带你彻底学会逆向
-</watermark>>
+关注我 带你彻底学会逆向

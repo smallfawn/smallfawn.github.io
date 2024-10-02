@@ -87,3 +87,25 @@ export default defineUserConfig({
   ],
 });
 ```
+
+# 水印
+
+```shell
+npm install -D @smallfawn/vuepress-plugin-watermark
+```
+
+```js
+import watermarkPlugin from "@smallfawn/vuepress-plugin-watermark";
+export default defineUserConfig({
+  plugins: [
+    watermarkPlugin(),
+  ],
+});
+      //text // 必填值 例如 版权所有
+      //fontSize //非必填 必须为数字 字体大小
+      //gap //非必填 必须为数字 间距
+<watermark text="版权所有" fontSize="40" gap="20">////内容 图片 视频 文字等</watermark>;
+```
+
+<watermark text="smallfawn" fontSize="16">关注我 带你彻底学会逆向
+</watermark>>
