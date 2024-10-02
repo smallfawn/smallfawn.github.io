@@ -17,7 +17,7 @@
     "@smallfawn/vuepress-plugin-googleadsense": "^1.0.6",
     "@smallfawn/vuepress-plugin-hitokoto": "^1.0.3",
     "@smallfawn/vuepress-plugin-music": "^1.0.3",
-    "@smallfawn/vuepress-plugin-watermark": "^1.0.1",
+    "@smallfawn/vuepress-plugin-watermark": "^1.0.2",
     "@vuepress/bundler-vite": "2.0.0-rc.15",
     "@waline/client": "^3.3.2",
     "element-plus": "^2.8.4",
