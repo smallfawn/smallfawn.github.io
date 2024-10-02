@@ -20,7 +20,7 @@ export default defineUserConfig({
     musicPlugin({ src: "https://download.samplelib.com/mp3/sample-15s.mp3" }),
     hitokotoPlugin({ type: "a" }),
     analyticsPlugin({ type: "51la-v5", key: "21922161" }),
-    watermarkPlugin()
+    watermarkPlugin(),
   ],
   /*locales: {
     "/": {
