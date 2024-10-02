@@ -110,7 +110,9 @@ export default defineUserConfig({
 这里是演示 ---
 
 <div style="width: 100%; height: 100px; display: flex">
-<watermark text="版权所有" :fontSize="40" :gap="20"><h>H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签H标签</h></watermark>
+<watermark text="版权所有" :fontSize="40" :gap="20"><template v-slot:namedSlot>
+        <div>这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容这里是具名插槽的内容</div>
+      </template></watermark>
 </div>
 
 这里是演示 ---
