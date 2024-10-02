@@ -88,24 +88,29 @@ export default defineUserConfig({
 });
 ```
 
-# 水印
+# 水印 / 转载 footer 版权保护
 
 ```shell
-npm install -D @smallfawn/vuepress-plugin-watermark
+npm install -D @smallfawn/vuepress-plugin-copyright
 ```
 
 ```js
-import watermarkPlugin from "@smallfawn/vuepress-plugin-watermark";
+import copyrightPlugin from "@smallfawn/vuepress-plugin-copyright";
 export default defineUserConfig({
-  plugins: [watermarkPlugin()],
+  plugins: [
+    copyrightPlugin({
+      copyrightText: "\n\n转载自: XXXXX 地址: https://www.example.com",
+    }),
+  ],
 });
 //text // 必填值 例如 版权所有
 //fontSize //非必填 必须为数字 字体大小
 //gap //非必填 必须为数字 间距
-<watermark text="版权所有" :fontSize="40" :gap="20">
+<watermark text="版权所有" fontSize="40" gap="20">
   ////内容 图片 视频 文字等
 </watermark>;
 ```
+
 
 这里是演示 ---
 
