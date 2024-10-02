@@ -107,5 +107,5 @@ export default defineUserConfig({
 <watermark text="版权所有" fontSize="40" gap="20">////内容 图片 视频 文字等</watermark>;
 ```
 
-<watermark text="smallfawn" fontSize="16">关注我 带你彻底学会逆向
+<watermark text="smallfawn" fontSize="16">关注我 带你彻底学会逆向 关注我 带你彻底学会逆向 关注我 带你彻底学会逆向 关注我 带你彻底学会逆向 关注我 带你彻底学会逆向
 </watermark>>
