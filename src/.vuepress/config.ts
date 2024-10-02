@@ -7,6 +7,7 @@ import busuanziPlugin from "@smallfawn/vuepress-plugin-busuanzi";
 import musicPlugin from "@smallfawn/vuepress-plugin-music";
 import hitokotoPlugin from "@smallfawn/vuepress-plugin-hitokoto";
 import analyticsPlugin from "@smallfawn/vuepress-plugin-analytics";
+import watermarkPlugin from "@smallfawn/vuepress-plugin-watermark";
 
 export default defineUserConfig({
   base: "/",
@@ -19,6 +20,7 @@ export default defineUserConfig({
     musicPlugin({ src: "https://download.samplelib.com/mp3/sample-15s.mp3" }),
     hitokotoPlugin({ type: "a" }),
     analyticsPlugin({ type: "51la-v5", key: "21922161" }),
+    watermarkPlugin()
   ],
   /*locales: {
     "/": {
