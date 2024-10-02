@@ -14,7 +14,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@smallfawn/vuepress-plugin-analytics": "^1.0.6",
     "@smallfawn/vuepress-plugin-busuanzi": "^1.0.8",
-    "@smallfawn/vuepress-plugin-copyright": "^1.0.1",
+    "@smallfawn/vuepress-plugin-copyright": "^1.0.2",
     "@smallfawn/vuepress-plugin-googleadsense": "^1.0.8",
     "@smallfawn/vuepress-plugin-hitokoto": "^1.0.3",
     "@smallfawn/vuepress-plugin-music": "^1.0.3",
