@@ -27,5 +27,7 @@
     "vuepress": "2.0.0-rc.15",
     "vuepress-plugin-google-adsense2": "^1.0.3",
     "vuepress-theme-hope": "2.0.0-rc.56"
+  },
+  "dependencies": {
   }
 }
