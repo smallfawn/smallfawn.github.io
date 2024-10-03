@@ -1,5 +1,5 @@
-const cheerio = require('cheerio');
-const fs = require('fs');
+import cheerio from 'cheerio';
+import fs from 'fs'
 const today = new Date();
 const year = today.getFullYear(); // 获取年份
 const month = String(today.getMonth() + 1).padStart(2, '0'); // 补零
@@ -97,7 +97,7 @@ async function main() {
         newHtml = newHtml.replace(/\t/g, '');
 
         // 最终写入文件
-        fs.writeFileSync(`./${formattedDate}.md`, newHtml);
+        fs.writeFileSync(`${formattedDate}.md`, newHtml);
         console.log(`所有内容已写入 ${formattedDate}.md文件`);
     } catch (err) {
         console.error("抓取页面出错：", err);
