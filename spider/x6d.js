@@ -1,4 +1,5 @@
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
+
 import fs from 'fs'
 const today = new Date();
 const year = today.getFullYear(); // 获取年份
