@@ -49,7 +49,7 @@ async function main() {
 
         }*/
 
-        let newHtml = '# 爬取日期: ' + formattedDate + '\n';
+        let newHtml = `---\nsticky: 999\n---` + "" + '# 爬取日期: ' + formattedDate + '\n';
 
         // 收集所有 fetch 请求的 Promise
         const promises = $('.list-ul li').map(async (index, element) => {
