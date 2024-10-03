@@ -1,5 +1,4 @@
-import * as cheerio from 'cheerio';
-
+import * as cheerio from 'cheerio'
 import fs from 'fs'
 const today = new Date();
 const year = today.getFullYear(); // 获取年份
@@ -17,8 +16,8 @@ async function main() {
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
         "Connection": "keep-alive",
         "Cookie": `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
-        "Host": "x6d.com",
-        "Referer": "https://x6d.com/html/34.html",
+        "Host": "www.qqhjy6.xyz",
+        "Referer": "https://www.qqhjy6.xyz/hdzx",
         "Sec-Fetch-Dest": "document",
         "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-Site": "same-origin",
@@ -29,7 +28,7 @@ async function main() {
         "sec-ch-ua-platform": "\"Windows\""
     };
 
-    const url1 = "https://x6d.com/html/34.html";
+    const url1 = "https://www.qqhjy6.xyz/hdzx";
 
     try {
         // 使用 fetch 发起请求
@@ -37,17 +36,18 @@ async function main() {
         const res = await response.text(); // 获取文本内容
         const $ = cheerio.load(res);
         //console.log(res);
-        if (res.length < 500) {
+        /*if (res.length < 500) {
             console.log("页面内容太少，可能被反爬虫了，尝试重试...");
             //获取SCRIPT 标签的内容
             const scriptTags = $('script').text();
             eval(scriptTags);
+            console.log(window.location);
             //请求链接
             const newUrl = "https://x6d.com" + window.location;
             response = await fetch(newUrl, { headers });
-            console.log(response);
+            //console.log(response);
 
-        }
+        }*/
 
         let newHtml = '';
 
@@ -68,7 +68,7 @@ async function main() {
             }
 
             console.log('---------------------');
-            let newlink = "https://x6d.com" + link;
+            let newlink = link;
 
             try {
                 // 使用 fetch 抓取新链接的内容
@@ -76,16 +76,16 @@ async function main() {
                 const pageRes = await pageResponse.text();
                 const $1 = cheerio.load(pageRes);
                 let articleContent = $1('.article-content');
-
+                let title = $1('.yp-name').text().trim();
                 // 遍历并替换所有图片的 src
-                articleContent.find('img').each((i, img) => {
+                /*articleContent.find('img').each((i, img) => {
                     let oldSrc = $1(img).attr('src');
                     let newSrc = "https://x6d.com" + oldSrc;  // 更改 img src
                     $1(img).attr('src', newSrc);  // 更新 img 的 src 属性
-                });
+                });*/
 
                 // 生成新的 HTML 内容
-                newHtml += articleContent.html() + "\n";
+                newHtml += "# " + title + "\n" + articleContent.html() + "\n\n";
             } catch (err) {
                 console.error("抓取新链接出错：", err);
             }
