@@ -38,12 +38,13 @@ async function main() {
         const $ = cheerio.load(res);
         //console.log(res);
         if (res.length < 500) {
+            console.log("页面内容太少，可能被反爬虫了，尝试重试...");
             //获取SCRIPT 标签的内容
             const scriptTags = $('script').text();
             eval(scriptTags);
-            console.log(url);
+            console.log(window.location);
             //请求链接
-            const newUrl = "https://x6d.com" + url;
+            const newUrl = "https://x6d.com" + window.location;
             response = await fetch(newUrl, { headers });
             //console.log(response);
 
