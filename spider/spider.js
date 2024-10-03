@@ -98,7 +98,7 @@ async function main() {
         newHtml = newHtml.replace(/\t/g, '');
 
         // 最终写入文件
-        fs.writeFileSync(`./${formattedDate}.md`, newHtml);
+        fs.writeFileSync(`spider/${formattedDate}.md`, newHtml);
         console.log(`所有内容已写入 ${formattedDate}.md文件`);
     } catch (err) {
         console.error("抓取页面出错：", err);
