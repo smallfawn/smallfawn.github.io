@@ -33,6 +33,11 @@ jobs:
           node-version: 20
           cache: npm
 
+      # Step to install cheerio before executing x6d.js
+      - name: 安装 cheerio
+        run: |
+          npm install cheerio
+
       # Step to execute the x6d.js file in the spider directory
       - name: 执行 spider 目录下的 x6d.js
         run: |
