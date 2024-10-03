@@ -49,7 +49,7 @@ async function main() {
 
         }*/
 
-        let newHtml = '';
+        let newHtml = '# 爬取日期: ' + formattedDate + '\n';
 
         // 收集所有 fetch 请求的 Promise
         const promises = $('.list-ul li').map(async (index, element) => {
@@ -85,7 +85,7 @@ async function main() {
                 });*/
 
                 // 生成新的 HTML 内容
-                newHtml += "# " + title + "\n" + articleContent.html() + "\n\n";
+                newHtml += "## " + title + "\n" + articleContent.html() + "\n\n";
             } catch (err) {
                 console.error("抓取新链接出错：", err);
             }
