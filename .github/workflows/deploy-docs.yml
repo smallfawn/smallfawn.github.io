@@ -49,7 +49,7 @@ jobs:
           cd spider
           ls
           cd ..
-          mv spider/*.md post/
+          mv spider/*.md src/posts/
 
       - name: 安装依赖
         run: |
