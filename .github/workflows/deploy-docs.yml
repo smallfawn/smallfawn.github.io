@@ -41,7 +41,7 @@ jobs:
       # Step to execute the x6d.js file in the spider directory
       - name: 执行 spider 目录下的 x6d.js
         run: |
-          node spider/x6d.js
+          node spider/spider.js
 
       # Step to move markdown files from spider directory to post directory
       - name: 移动 markdown 文件到 post 目录
