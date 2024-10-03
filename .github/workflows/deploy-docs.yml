@@ -46,6 +46,9 @@ jobs:
       # Step to move markdown files from spider directory to post directory
       - name: 移动 markdown 文件到 post 目录
         run: |
+          cd spider
+          ls
+          cd ..
           mv spider/*.md post/
 
       - name: 安装依赖
