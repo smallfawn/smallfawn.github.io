@@ -5,7 +5,6 @@ const formattedDate = tools.getDate();
 let newHtml =
     `---\nsticky: 999\n---` + "\n" + "# 爬取日期: " + formattedDate + "\n";
 async function qqhjy6() {
-    global["window"] = {};
     // 10位时间戳
     let timestamp = Date.now().toString().slice(0, 10);
     const options = {
@@ -16,7 +15,7 @@ async function qqhjy6() {
             "Accept-Encoding": "gzip, deflate, br, zstd",
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
             Connection: "keep-alive",
-            Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
+            Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${tools.timestamp10()}`,
             Host: "www.qqhjy6.xyz",
             Referer: "https://www.qqhjy6.xyz/hdzx",
             "Upgrade-Insecure-Requests": "1",
@@ -30,7 +29,7 @@ async function qqhjy6() {
         // 使用 fetch 发起请求
         let res = await tools.request(options);
         const $ = cheerio.load(res);
-        //console.log(res);
+        console.log(res);
         /*if (res.length < 500) {
                 console.log("页面内容太少，可能被反爬虫了，尝试重试...");
                 //获取SCRIPT 标签的内容
