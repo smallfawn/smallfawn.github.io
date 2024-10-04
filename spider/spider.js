@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import fs from "fs";
-import tools from "./tools";
+import tools from "./tools.js";
 const formattedDate = tools.getDate();
 let newHtml =
     `---\nsticky: 999\n---` + "\n" + "# 爬取日期: " + formattedDate + "\n";
