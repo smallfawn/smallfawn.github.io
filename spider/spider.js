@@ -29,7 +29,6 @@ async function qqhjy6() {
         // 使用 fetch 发起请求
         let res = await tools.request(options);
         const $ = cheerio.load(res);
-        console.log(res);
         /*if (res.length < 500) {
                 console.log("页面内容太少，可能被反爬虫了，尝试重试...");
                 //获取SCRIPT 标签的内容
@@ -176,20 +175,50 @@ async function iqnew() {
     }
 }
 async function kumao() {
-    const response = await fetch("https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created", {
-        "headers": {
-            "accept": "*/*",
-            "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-            "priority": "u=1, i",
-            "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\"",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site"
-        }
+    const headers = {
+        "accept": "*/*",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "priority": "u=1, i",
+        "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site"
+    }
+    const res = await tools.request({
+        url: "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
+        headers: headers
     });
-    const res = await response.json();
+    if (res?.code == 1) {
+        for (let i of res?.data) {
+            let id = i?.cid
+            let time
+            if (i?.created.length == 10) {
+
+                time = tools.getDate(Number(i?.created + "000"))
+            }
+            time = tools.getDate(i?.created)
+            if (time !== formattedDate) {
+                break
+            }
+            let res = await tools.request({
+                url: "https://www.kumao6.com/article/" + id,
+                headers: headers
+            })
+            const $ = cheerio.load(res)
+            //找到标签为article的标签
+            let articleContent = $("article")
+            //获取里面的html
+            //获取页面TITLE
+            let title = $("title").text()
+            let html = articleContent.html()
+            console.log("title", title);
+            html = html.replace(/\t/g, "")
+
+            newHtml += "## " + title + "\n" + html + "\n\n";
+        }
+    }
     //kumao6.com
     //详情页
     /*<article class="py-5"><p>【活动介绍】和平精英抽红包
@@ -204,6 +233,7 @@ async function kumao() {
 async function main() {
     await iqnew();
     await qqhjy6();
+    await kumao();
     newHtml = newHtml.replace(/\t/g, "");
     // 最终写入文件
     fs.writeFileSync(`spider/${formattedDate}.md`, newHtml);
