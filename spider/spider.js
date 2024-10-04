@@ -149,7 +149,7 @@ async function iqnew() {
             urlArr.map(async (url) => {
                 let res = await tools.request({ url, headers ,isArrayBuffer: true});
                 const $3 = cheerio.load(res);
-                console.log(res);
+                //console.log(res);
                 let articleContent = $3(".content-intro.typo");
                 articleContent.find(".time-count-down, .keyword.clearfix").remove();
 
