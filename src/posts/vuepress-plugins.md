@@ -1,3 +1,6 @@
+---
+sticky: 99998
+---
 # vuepress-plugins
 
 vuepress 插件集合 自写加收集

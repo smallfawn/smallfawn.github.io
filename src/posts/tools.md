@@ -1,3 +1,6 @@
+---
+sticky: 99999
+---
 # 逆向工具
 IDA PRO 查看汇编代码：https://down.52pojie.cn/Tools/Disassemblers/IDA_Pro_v8.3_Portable.zip
 
