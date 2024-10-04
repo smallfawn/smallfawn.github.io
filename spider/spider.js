@@ -186,21 +186,22 @@ async function kumao() {
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site"
     }
-    const res = await tools.request({
+    let res = await tools.request({
         url: "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
         headers: headers,
         method: "POST"
     });
-    console.log("RES" + res);
     if (res?.code == 1) {
         for (let i of res?.data) {
             let id = i?.cid
             let time
-            if (i?.created.length == 10) {
+            if (String(i?.created).length == 10) {
 
                 time = tools.getDate(Number(i?.created + "000"))
+            } else {
+                time = tools.getDate(i?.created)
             }
-            time = tools.getDate(i?.created)
+
             if (time !== formattedDate) {
                 break
             }
