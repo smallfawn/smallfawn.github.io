@@ -1,43 +1,34 @@
 import * as cheerio from "cheerio";
 import fs from "fs";
-const today = new Date();
-const year = today.getFullYear(); // 获取年份
-const month = String(today.getMonth() + 1).padStart(2, "0"); // 补零
-const day = String(today.getDate()).padStart(2, "0"); // 补零
-const formattedDate = `${year}-${month}-${day}`;
+import tools from "./tools";
+const formattedDate = tools.getDate();
 let newHtml =
     `---\nsticky: 999\n---` + "\n" + "# 爬取日期: " + formattedDate + "\n";
 async function qqhjy6() {
     global["window"] = {};
     // 10位时间戳
     let timestamp = Date.now().toString().slice(0, 10);
-    const headers = {
-        Accept:
-            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-        Connection: "keep-alive",
-        Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
-        Host: "www.qqhjy6.xyz",
-        Referer: "https://www.qqhjy6.xyz/hdzx",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "same-origin",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
-        "sec-ch-ua":
-            '"Microsoft Edge";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-    };
+    const options = {
+        url: "https://www.qqhjy6.xyz/hdzx",
+        headers: {
+            Accept:
+                "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "Accept-Encoding": "gzip, deflate, br, zstd",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+            Connection: "keep-alive",
+            Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
+            Host: "www.qqhjy6.xyz",
+            Referer: "https://www.qqhjy6.xyz/hdzx",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent":
+                tools.randomUserAgent(),
+        }
 
-    const url1 = "https://www.qqhjy6.xyz/hdzx";
+    };
 
     try {
         // 使用 fetch 发起请求
-        let response = await fetch(url1, { headers });
-        const res = await response.text(); // 获取文本内容
+        let res = await tools.request(options);
         const $ = cheerio.load(res);
         //console.log(res);
         /*if (res.length < 500) {
@@ -75,8 +66,22 @@ async function qqhjy6() {
 
                 try {
                     // 使用 fetch 抓取新链接的内容
-                    const pageResponse = await fetch(newlink, { headers });
-                    const pageRes = await pageResponse.text();
+                    const pageRes = await tools.request({
+                        url: newlink,
+                        headers: {
+                            Accept:
+                                "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                            "Accept-Encoding": "gzip, deflate, br, zstd",
+                            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+                            Connection: "keep-alive",
+                            Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
+                            Host: "www.qqhjy6.xyz",
+                            Referer: "https://www.qqhjy6.xyz/hdzx",
+                            "Upgrade-Insecure-Requests": "1",
+                            "User-Agent":
+                                tools.randomUserAgent(),
+                        }
+                    });
                     const $1 = cheerio.load(pageRes);
                     let articleContent = $1(".article-content");
                     let title = $1(".yp-name").text().trim();
@@ -103,6 +108,7 @@ async function qqhjy6() {
     }
 }
 async function iqnew() {
+
     let url = "https://www.iqnew.com/activity/";
     const headers = {
         accept:
@@ -123,10 +129,9 @@ async function iqnew() {
         "upgrade-insecure-requests": "1",
         "Content-Type": "text/plain; charset=gbk",
     };
-
     let urlArr = [];
     try {
-        let response = await fetch(url, { headers });
+        let response = await tools.request({ url, headers });
         const buffer = await response.arrayBuffer();
         const decoder = new TextDecoder("gbk");
         const res = decoder.decode(buffer);
@@ -147,12 +152,7 @@ async function iqnew() {
 
         await Promise.all(
             urlArr.map(async (url) => {
-                let response = await fetch(url, { headers });
-
-                const buffer = await response.arrayBuffer();
-                const decoder = new TextDecoder("gbk");
-                const res = decoder.decode(buffer);
-
+                let res = await tools.request({ url, headers });
                 const $3 = cheerio.load(res);
                 let articleContent = $3(".content-intro.typo");
                 articleContent.find(".time-count-down, .keyword.clearfix").remove();
@@ -178,42 +178,23 @@ async function iqnew() {
         console.error("抓取页面出错：", err);
     }
 }
-async function juhezy() {
-    const response = await fetch("https://www.juhezy.net/api.html", {
+async function kumao() {
+    const response = await fetch("https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created", {
         "headers": {
-            "accept": "application/json, text/javascript, */*; q=0.01",
+            "accept": "*/*",
             "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
             "priority": "u=1, i",
             "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
             "sec-ch-ua-mobile": "?0",
             "sec-ch-ua-platform": "\"Windows\"",
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-origin",
-            "x-requested-with": "XMLHttpRequest"
+            "sec-fetch-site": "same-site"
         }
-    })
-    const res = response.json();
-    if (res.code == 1) {
-        for (let i = 0; i < res.data.length; i++) {
-            //"2024-10-04 11:40:37"
-            //截取res.data[i].create_time 字符串前10位  0-10
-
-            let t = res.data[i].create_time.substring(0, 10);
-            if (t !== formattedDate) {
-                break;
-            }
-            const response = await fetch("https://www.juhezy.net/html/" + res.data[i].id + ".html")
-            const res = await response.text();
-
-        }
-    }
-
-
-}
-async function kumiao() {
+    });
+    const res = await response.json();
     //kumao6.com
+    //详情页
     /*<article class="py-5"><p>【活动介绍】和平精英抽红包
 <br>【活动日期】未知
 <br>【活动规则】进去完成任务领取次数
