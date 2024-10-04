@@ -160,7 +160,8 @@ async function iqnew() {
                 // 获取剩余元素的 HTML
                 // 添加 referrer 属性到所有的 <img> 标签
                 articleContent.find("img").each((index, img) => {
-                    $3(img).attr("referrer", "no-referrer"); // 或 "origin" 或 "unsafe-url"
+                    //图片会防盗链 所以这个暂时不要用了  等着下载下来加载到本地再说
+                    $3(img).attr("src", "https://image.smallfawn.work/url=" + $3(img).attr("src"));
                     $3(img).attr("referrerpolicy", "no-referrer");
                 });
                 let remainingContent = articleContent.html();
@@ -176,6 +177,40 @@ async function iqnew() {
     } catch (err) {
         console.error("抓取页面出错：", err);
     }
+}
+async function juhezy() {
+    const response = await fetch("https://www.juhezy.net/api.html", {
+        "headers": {
+            "accept": "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "priority": "u=1, i",
+            "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-requested-with": "XMLHttpRequest"
+        }
+    })
+    const res = response.json();
+    if (res.code == 1) {
+        for (let i = 0; i < res.data.length; i++) {
+            //"2024-10-04 11:40:37"
+            //截取res.data[i].create_time 字符串前10位  0-10
+
+            let t = res.data[i].create_time.substring(0, 10);
+            if (t !== formattedDate) {
+                break;
+            }
+            const response = await fetch("https://www.juhezy.net/html/" + res.data[i].id + ".html")
+            const res = await response.text();
+
+        }
+    }
+
+
 }
 async function main() {
     await iqnew();
