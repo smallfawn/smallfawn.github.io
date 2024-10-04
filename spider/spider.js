@@ -69,7 +69,6 @@ async function qqhjy6() {
                         headers: {
                             Accept:
                                 "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                            "Accept-Encoding": "gzip, deflate, br, zstd",
                             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
                             Connection: "keep-alive",
                             Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=1727485753,1727744959,1727861290,1727916622; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${timestamp}`,
@@ -150,6 +149,7 @@ async function iqnew() {
             urlArr.map(async (url) => {
                 let res = await tools.request({ url, headers });
                 const $3 = cheerio.load(res);
+                console.log(res);
                 let articleContent = $3(".content-intro.typo");
                 articleContent.find(".time-count-down, .keyword.clearfix").remove();
 
