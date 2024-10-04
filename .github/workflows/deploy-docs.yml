@@ -36,6 +36,7 @@ jobs:
       # Step to install cheerio before executing spider.js
       - name: 安装 cheerio
         run: |
+          npm install axios
           npm install cheerio
 
       - name: 执行 spider 目录下的 爬虫
