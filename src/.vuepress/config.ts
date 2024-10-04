@@ -3,7 +3,6 @@ import { defineUserConfig } from "vuepress";
 import theme from "./theme.js";
 import googleAdSensePlugin from "@smallfawn/vuepress-plugin-googleadsense";
 import busuanziPlugin from "@smallfawn/vuepress-plugin-busuanzi";
-import musicPlugin from "@smallfawn/vuepress-plugin-music";
 import hitokotoPlugin from "@smallfawn/vuepress-plugin-hitokoto";
 import analyticsPlugin from "@smallfawn/vuepress-plugin-analytics";
 import copyrightPlugin from "@smallfawn/vuepress-plugin-copyright";
