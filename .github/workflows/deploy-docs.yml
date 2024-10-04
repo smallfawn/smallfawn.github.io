@@ -33,7 +33,7 @@ jobs:
           node-version: 20
           cache: npm
 
-      # Step to install cheerio before executing x6d.js
+      # Step to install cheerio before executing spider.js
       - name: 安装 cheerio
         run: |
           npm install cheerio
@@ -45,10 +45,16 @@ jobs:
       # Step to move markdown files from spider directory to post directory
       - name: 移动 markdown 文件到 post 目录
         run: |
-          cd spider
-          ls
-          cd ..
           mv spider/*.md src/posts/
+
+      # Step to commit and push changes after moving markdown files
+      - name: 提交更改并推送到仓库
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add src/posts/*.md
+          git commit -m "更新爬虫生成的 markdown 文件"
+          git push origin main
 
       - name: 安装依赖
         run: |
