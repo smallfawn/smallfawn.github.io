@@ -177,7 +177,7 @@ async function main() {
   await qqhjy6();
   newHtml = newHtml.replace(/\t/g, "");
   // 最终写入文件
-  fs.writeFileSync(`${formattedDate}.md`, newHtml);
+  fs.writeFileSync(`spider/${formattedDate}.md`, newHtml);
   console.log(`所有内容已写入 ${formattedDate}.md文件`);
 }
 main();
