@@ -131,10 +131,7 @@ async function iqnew() {
     };
     let urlArr = [];
     try {
-        let response = await tools.request({ url, headers });
-        const buffer = await response.arrayBuffer();
-        const decoder = new TextDecoder("gbk");
-        const res = decoder.decode(buffer);
+        let res = await tools.request({ url, headers });
         const $2 = cheerio.load(res);
         // 遍历 ul.list-item 内的每个 li
         $2("ul.list-item li").each(function () {
