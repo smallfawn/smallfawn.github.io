@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # Run every day at 6 PM CST (China Standard Time)
-    - cron: '0 10 * * *' # 6 PM CST is 10 AM UTC
+    # Run every 2 hours between 8 AM and 8 PM CST (China Standard Time)
+    - cron: '0 0-12/2 * * *' # 每天的中国时间上午8点到晚上8点（CST）
 
 permissions:
   contents: write

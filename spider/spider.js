@@ -212,6 +212,17 @@ async function juhezy() {
 
 
 }
+async function kumiao() {
+    //kumao6.com
+    /*<article class="py-5"><p>【活动介绍】和平精英抽红包
+<br>【活动日期】未知
+<br>【活动规则】进去完成任务领取次数
+<br>【参与方式】qq打开<a href="https://youxi.gamecenter.qq.com/m/act/b6082753c8c2e8b0_10245682.html?_wv=1&amp;pvsrc=310&amp;ADTAG=adtag.share.zujian&amp;plg_auth=1">https://youxi.gamecenter.qq.com/m/act/b6082753c8c2e8b0_10245682.html?_wv=1&amp;pvsrc=310&amp;ADTAG=adtag.share.zujian&amp;plg_auth=1</a>
+<br>【其他说明】[玫瑰][玫瑰][玫瑰]
+<br>【活动截图 </p>
+<div class="el-image"><img src="http://cdn.u1.huluxia.com/g4/M02/70/C8/rBAAdmb_iumARGG_AANn17xHiEA045.jpg" alt="【现金红包】和平精英抽红包" title="【现金红包】和平精英抽红包" class="el-image__inner el-image__preview"></div> 
+<div class="el-image"><img src="http://cdn.u1.huluxia.com/g4/M02/70/C8/rBAAdmb_iuqABZ5tAANlkocxx0A028.jpg" alt="【现金红包】和平精英抽红包" title="【现金红包】和平精英抽红包" class="el-image__inner el-image__preview"></div></article>*/
+}
 async function main() {
     await iqnew();
     await qqhjy6();
