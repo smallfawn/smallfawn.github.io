@@ -188,7 +188,8 @@ async function kumao() {
     }
     const res = await tools.request({
         url: "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
-        headers: headers
+        headers: headers,
+        method: "POST"
     });
     if (res?.code == 1) {
         for (let i of res?.data) {
