@@ -216,8 +216,8 @@ async function kumao() {
             //获取页面TITLE
             articleContent.find("img").each((index, img) => {
                 //图片会防盗链 所以这个暂时不要用了  等着下载下来加载到本地再说
-                $3(img).attr("src", "https://image.smallfawn.work/?url=" + $3(img).attr("src"));
-                $3(img).attr("referrerpolicy", "no-referrer");
+                $(img).attr("src", "https://image.smallfawn.work/?url=" + $(img).attr("src"));
+                $(img).attr("referrerpolicy", "no-referrer");
             });
             let title = $("title").text()
             let html = articleContent.html()
