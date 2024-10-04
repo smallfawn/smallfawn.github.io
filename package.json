@@ -19,7 +19,7 @@
     "@smallfawn/vuepress-plugin-hitokoto": "^1.0.3",
     "@smallfawn/vuepress-plugin-music": "^1.0.3",
     "@smallfawn/vuepress-plugin-watermark": "^1.0.7",
-    "@vuepress/bundler-vite": "2.0.0-rc.15",
+    "@vuepress/bundler-vite": "2.0.0-rc.17",
     "@waline/client": "^3.3.2",
     "element-plus": "^2.8.4",
     "sass-embedded": "^1.79.3",
