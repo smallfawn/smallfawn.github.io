@@ -1,12 +1,11 @@
 import * as cheerio from "cheerio";
-import fs from "fs";
 import tools from "./tools.js";
 const formattedDate = tools.getDate();
 let newHtml =
     `---\nsticky: 999\n---` + "\n" + "# 爬取日期: " + formattedDate + "\n";
 async function qqhjy6() {
     // 10位时间戳
-    let timestamp = Date.now().toString().slice(0, 10);
+    let timestamp = tools.timestamp10();
     const options = {
         url: "https://www.qqhjy6.xyz/hdzx",
         headers: {
@@ -82,6 +81,7 @@ async function qqhjy6() {
                     });
                     const $1 = cheerio.load(pageRes);
                     let articleContent = $1(".article-content");
+                    
                     let title = $1(".yp-name").text().trim();
                     // 遍历并替换所有图片的 src
                     /*articleContent.find('img').each((i, img) => {
@@ -214,6 +214,11 @@ async function kumao() {
             let articleContent = $("article")
             //获取里面的html
             //获取页面TITLE
+            articleContent.find("img").each((index, img) => {
+                //图片会防盗链 所以这个暂时不要用了  等着下载下来加载到本地再说
+                $3(img).attr("src", "https://image.smallfawn.work/?url=" + $3(img).attr("src"));
+                $3(img).attr("referrerpolicy", "no-referrer");
+            });
             let title = $("title").text()
             let html = articleContent.html()
             console.log("title", title);
