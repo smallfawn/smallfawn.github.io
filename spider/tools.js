@@ -61,10 +61,9 @@ function getDate(time = "") {
     return formattedDate;
 }
 function savaArticle(name, data) {
-    console.log(data);
-    console.log(typeof data);
-    
-    fs.writeFileSync(`spider/${name}.md`, data);
+
+
+    fs.writeFileSync(`spider/${name}.md`, data, { encoding: 'utf8' });
 }
 const tools = {
     randomUserAgent, savaArticle, timestamp10, timestamp13, request, randomInt, getDate
