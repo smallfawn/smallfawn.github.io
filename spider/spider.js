@@ -161,7 +161,7 @@ async function iqnew() {
                 // 添加 referrer 属性到所有的 <img> 标签
                 articleContent.find("img").each((index, img) => {
                     //图片会防盗链 所以这个暂时不要用了  等着下载下来加载到本地再说
-                    $3(img).attr("src", "https://image.smallfawn.work/url=" + $3(img).attr("src"));
+                    $3(img).attr("src", "https://image.smallfawn.work/?url=" + $3(img).attr("src"));
                     $3(img).attr("referrerpolicy", "no-referrer");
                 });
                 let remainingContent = articleContent.html();
