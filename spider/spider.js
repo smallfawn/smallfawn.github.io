@@ -79,7 +79,8 @@ async function qqhjy6() {
                             "Upgrade-Insecure-Requests": "1",
                             "User-Agent":
                                 tools.randomUserAgent(),
-                        }
+                        },
+
                     });
                     const $1 = cheerio.load(pageRes);
                     let articleContent = $1(".article-content");
@@ -130,7 +131,7 @@ async function iqnew() {
     };
     let urlArr = [];
     try {
-        let res = await tools.request({ url, headers });
+        let res = await tools.request({ url, headers, isArrayBuffer: true });
         const $2 = cheerio.load(res);
         // 遍历 ul.list-item 内的每个 li
         $2("ul.list-item li").each(function () {

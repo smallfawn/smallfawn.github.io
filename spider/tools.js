@@ -22,19 +22,25 @@ function timestamp13() {
 async function request(options) {
     try {
         // 设置请求类型为arraybuffer
-        const response = await axios.request({
-            ...options,
-            responseType: 'arraybuffer' // 指定响应类型为arraybuffer
-        });
+        if (options['isArrayBuffer']) {
+            const response = await axios.request({
+                ...options,
+                responseType: 'arraybuffer' // 指定响应类型为arraybuffer
+            });
 
-        // 获取响应的arrayBuffer
-        const buffer = response.data;
+            // 获取响应的arrayBuffer
+            const buffer = response.data;
 
-        // 使用 TextDecoder 解码为字符串，编码设置为 'gbk'
-        const decoder = new TextDecoder("gbk");
-        const res = decoder.decode(buffer);
+            // 使用 TextDecoder 解码为字符串，编码设置为 'gbk'
+            const decoder = new TextDecoder("gbk");
+            const res = decoder.decode(buffer);
 
-        return res; // 返回解码后的字符串
+            return res; // 返回解码后的字符串
+        } else {
+            const response = await axios.request(options);
+            return response.data;
+        }
+
     } catch (error) {
         console.error('Request failed:', error);
         throw error; // 抛出错误
