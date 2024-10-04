@@ -191,6 +191,7 @@ async function kumao() {
         headers: headers,
         method: "POST"
     });
+    console.log("RES" + res);
     if (res?.code == 1) {
         for (let i of res?.data) {
             let id = i?.cid
