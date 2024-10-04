@@ -61,6 +61,9 @@ function getDate(time = "") {
     return formattedDate;
 }
 function savaArticle(name, data) {
+    console.log(data);
+    console.log(typeof data);
+    
     fs.writeFileSync(`spider/${name}.md`, data);
 }
 const tools = {
