@@ -161,6 +161,7 @@ async function iqnew() {
                 // 添加 referrer 属性到所有的 <img> 标签
                 articleContent.find("img").each((index, img) => {
                     $3(img).attr("referrer", "no-referrer"); // 或 "origin" 或 "unsafe-url"
+                    $3(img).attr("referrerpolicy", "no-referrer");
                 });
                 let remainingContent = articleContent.html();
                 //转换为字符串
