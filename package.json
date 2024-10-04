@@ -12,21 +12,16 @@
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@smallfawn/vuepress-plugin-analytics": "^1.0.6",
-    "@smallfawn/vuepress-plugin-busuanzi": "^1.0.8",
-    "@smallfawn/vuepress-plugin-copyright": "^1.0.2",
-    "@smallfawn/vuepress-plugin-googleadsense": "^1.0.8",
-    "@smallfawn/vuepress-plugin-hitokoto": "^1.0.3",
-    "@smallfawn/vuepress-plugin-music": "^1.0.3",
-    "@smallfawn/vuepress-plugin-watermark": "^1.0.7",
-    "@vuepress/bundler-vite": "2.0.0-rc.17",
-    "@waline/client": "^3.3.2",
+    "@smallfawn/vuepress-plugin-analytics": "^1.0.9",
+    "@smallfawn/vuepress-plugin-busuanzi": "^1.1.0",
+    "@smallfawn/vuepress-plugin-copyright": "^1.0.3",
+    "@smallfawn/vuepress-plugin-googleadsense": "^1.0.9",
+    "@smallfawn/vuepress-plugin-hitokoto": "^1.0.5",
     "element-plus": "^2.8.4",
-    "sass-embedded": "^1.79.3",
-    "vue": "^3.5.8",
+    "@vuepress/bundler-vite": "2.0.0-rc.17",
+    "sass-embedded": "^1.79.4",
+    "vue": "^3.5.10",
     "vuepress": "2.0.0-rc.17",
-    "vuepress-theme-hope": "2.0.0-rc.57"
-  },
-  "dependencies": {
+    "vuepress-theme-hope": "2.0.0-rc.58"
   }
 }

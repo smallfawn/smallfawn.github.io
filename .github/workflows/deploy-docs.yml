@@ -38,8 +38,7 @@ jobs:
         run: |
           npm install cheerio
 
-      # Step to execute the x6d.js file in the spider directory
-      - name: 执行 spider 目录下的 x6d.js
+      - name: 执行 spider 目录下的 爬虫
         run: |
           node spider/spider.js
 

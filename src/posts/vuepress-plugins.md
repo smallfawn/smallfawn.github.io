@@ -28,12 +28,16 @@ npm install -D @smallfawn/vuepress-plugin-busuanzi
 ```js
 import busuanziPlugin from "@smallfawn/vuepress-plugin-busuanzi";
 export default defineUserConfig({
-  plugins: [busuanziPlugin()],
+  plugins: [
+    busuanziPlugin({
+      server: "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",
+    }),
+  ],
 });
 <busuanzi />; //busuanzi数据统计  组件
 ```
 
-# 音乐播放器
+# 音乐播放器 (主题 hope 2.0.0-cr.58/57 存在兼容性问题 vuepress 2.0.0-rc.17 暂未修复 2024/10/14)
 
 ```shell
 npm install -D @smallfawn/vuepress-plugin-music
@@ -110,7 +114,6 @@ export default defineUserConfig({
   ////内容 图片 视频 文字等
 </watermark>;
 ```
-
 
 这里是演示 ---
 

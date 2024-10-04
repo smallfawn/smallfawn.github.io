@@ -1,6 +1,6 @@
 import { navbar } from "vuepress-theme-hope";
 
-export const zhNavbar = navbar([
+export default navbar([
   "/",
   {
     text: "博文",
@@ -8,9 +8,9 @@ export const zhNavbar = navbar([
     prefix: "/posts/",
     children: [
       {
-        text: "苹果",
+        text: "好看的",
         icon: "pen-to-square",
-        prefix: "apple/",
+        prefix: "好看的/",
         children: [
           { text: "苹果1", icon: "pen-to-square", link: "1" },
           { text: "苹果2", icon: "pen-to-square", link: "2" },
@@ -19,9 +19,9 @@ export const zhNavbar = navbar([
         ],
       },
       {
-        text: "香蕉",
+        text: "好玩的",
         icon: "pen-to-square",
-        prefix: "banana/",
+        prefix: "好玩的/",
         children: [
           {
             text: "香蕉 1",
@@ -37,7 +37,11 @@ export const zhNavbar = navbar([
           "4",
         ],
       },
-      { text: "自写vuepress插件", icon: "pen-to-square", link: "vuepress-plugins" },
+      {
+        text: "自写vuepress插件",
+        icon: "pen-to-square",
+        link: "vuepress-plugins",
+      },
     ],
   },
   {
