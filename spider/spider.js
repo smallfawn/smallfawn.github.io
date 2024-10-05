@@ -100,12 +100,29 @@ async function iqnew() {
 
 // 处理 kumao 链接
 async function kumao() {
-    const res = await fetchPage(
-        "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
+    // 请求第一个链接
+    const res1 = await fetchPage(
+        "https://api.kumao6.com/metas/selectContents?searchParams=%7B%22type%22:%22post%22,%22mid%22:2%7D&page=1&limit=15&order=created",
         { ...defaultHeaders, method: "POST" }
     );
-    if (!res?.code) return;
+    if (!res1?.code) return;
 
+    // 处理第一个请求的返回数据
+    await processResponse(res1);
+
+    // 请求第二个链接
+    const res2 = await fetchPage(
+        "https://api.kumao6.com/metas/selectContents?searchParams=%7B%22type%22:%22post%22,%22mid%22:1%7D&page=1&limit=15&order=created",
+        { ...defaultHeaders, method: "POST" }
+    );
+    if (!res2?.code) return;
+
+    // 处理第二个请求的返回数据
+    await processResponse(res2);
+}
+
+// 处理返回数据的函数
+async function processResponse(res) {
     for (let item of res.data) {
         const time = tools.getDate(item.created * 1000);
         if (time !== formattedDate) break;
@@ -115,12 +132,14 @@ async function kumao() {
         const articleContent = $("article");
         const title = $("title").text();
 
-        crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });  // 保存爬取的链接和日期
+        // 保存爬取的链接和日期
+        crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });
         processImages($, articleContent);
+
+        // 处理爬取到的 HTML 内容
         newHtml += `## ${title}\n${articleContent.html().replace(/\t/g, "")}\n\n`;
     }
 }
-
 // 主函数
 async function main() {
     await iqnew();
