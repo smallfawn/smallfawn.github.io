@@ -51,11 +51,11 @@ async function qqhjy6() {
         let date = $(element).find(".list-ca").text().trim().replace("发布时间：", "");
 
         if (date === formattedDate) {
-            crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
             const pageRes = await fetchPage(link);
             const $1 = cheerio.load(pageRes);
             const articleContent = $1(".article-content");
             const title = $1(".yp-name").text().trim();
+            crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
 
             processImages($1, articleContent);
             newHtml += `## ${title}\n${articleContent.html()}\n\n`;
