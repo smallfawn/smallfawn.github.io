@@ -67,8 +67,8 @@ function saveArticle(name, data) {
 }
 function readArticle(name) {
     //如果存在则读取 否则返回null
-    if (!fs.existsSync(`spider/${name}.md`)) return null;
-    return fs.readFileSync(`spider/${name}.md`, { encoding: 'utf8' });
+    if (!fs.existsSync(`src/posts/${name}.md`)) return null;
+    return fs.readFileSync(`src/posts/${name}.md`, { encoding: 'utf8' });
 }
 function getSticky(inputText) {
     const match = inputText.match(/sticky:\s*(\d+)/);
