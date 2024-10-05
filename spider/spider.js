@@ -3,6 +3,7 @@ import tools from "./tools.js";
 
 const formattedDate = tools.getDate();
 let newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${formattedDate}\n`;
+let crawledLinks = [];  // 用于存储爬取的链接和日期
 
 // 公用请求头
 const defaultHeaders = {
@@ -50,6 +51,7 @@ async function qqhjy6() {
         let date = $(element).find(".list-ca").text().trim().replace("发布时间：", "");
 
         if (date === formattedDate) {
+            crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
             const pageRes = await fetchPage(link);
             const $1 = cheerio.load(pageRes);
             const articleContent = $1(".article-content");
@@ -76,7 +78,9 @@ async function iqnew() {
         const href = $(element).find("a").attr("href");
 
         if (date === formattedDate) {
-            urlArr.push(`https://www.iqnew.com${href}`);
+            const link = `https://www.iqnew.com${href}`;
+            urlArr.push(link);
+            crawledLinks.push({ title: $(element).find("a").attr("title"), link, date });  // 保存爬取的链接和日期
         }
     });
 
@@ -111,6 +115,7 @@ async function kumao() {
         const articleContent = $("article");
         const title = $("title").text();
 
+        crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });  // 保存爬取的链接和日期
         processImages($, articleContent);
         newHtml += `## ${title}\n${articleContent.html().replace(/\t/g, "")}\n\n`;
     }
@@ -121,7 +126,14 @@ async function main() {
     await iqnew();
     await qqhjy6();
     await kumao();
+
     tools.saveArticle(formattedDate, newHtml);
+
+    // 输出爬取的链接和日期
+    console.log("爬取的链接和日期：");
+    crawledLinks.forEach(link => {
+        console.log(`日期: ${link.date}, 标题: ${link.title}, 链接: ${link.link}`);
+    });
 }
 
 main();
