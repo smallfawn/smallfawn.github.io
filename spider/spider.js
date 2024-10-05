@@ -1,167 +1,127 @@
 import * as cheerio from "cheerio";
 import tools from "./tools.js";
 
-class Scraper {
-    constructor() {
-        this.newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${tools.getDate()}\n`;
-        this.formattedDate = tools.getDate();
-    }
+const formattedDate = tools.getDate();
+let newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${formattedDate}\n`;
 
-    async fetchPage(options) {
-        try {
-            return await tools.request(options);
-        } catch (err) {
-            console.error("请求失败：", err);
-            return null;
+// 公用请求头
+const defaultHeaders = {
+    "accept": "*/*",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+    "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "priority": "u=1, i",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "upgrade-insecure-requests": "1",
+};
+
+// 简化工具函数调用，减少重复
+const fetchPage = async (url, headers = defaultHeaders) => {
+    try {
+        return await tools.request({ url, headers });
+    } catch (err) {
+        console.error(`抓取页面 ${url} 出错：`, err);
+    }
+};
+
+// 通用处理图片防盗链问题
+const processImages = ($, selector) => {
+    $(selector).find("img").each((index, img) => {
+        const src = $(img).attr("src");
+        $(img).attr({
+            src: `https://image.smallfawn.work/?url=${src}`,
+            referrerpolicy: "no-referrer"
+        });
+    });
+};
+
+// 处理 qqhjy6 链接
+async function qqhjy6() {
+    const res = await fetchPage("https://www.qqhjy6.xyz/hdzx");
+    if (!res) return;
+
+    const $ = cheerio.load(res);
+    const promises = $(".list-ul li").map(async (index, element) => {
+        const title = $(element).find(".soft-title").text().trim();
+        const link = $(element).find(".soft-title").attr("href");
+        let date = $(element).find(".list-ca").text().trim().replace("发布时间：", "");
+
+        if (date === formattedDate) {
+            const pageRes = await fetchPage(link);
+            const $1 = cheerio.load(pageRes);
+            const articleContent = $1(".article-content");
+            const title = $1(".yp-name").text().trim();
+
+            processImages($1, articleContent);
+            newHtml += `## ${title}\n${articleContent.html()}\n\n`;
         }
-    }
+    }).get();
 
-    async saveArticle() {
-        tools.saveArticle(this.formattedDate, this.newHtml);
-    }
+    await Promise.all(promises);
 }
 
-class QQHJY6Scraper extends Scraper {
-    async scrape() {
-        const options = {
-            url: "https://www.qqhjy6.xyz/hdzx",
-            headers: {
-                Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Accept-Encoding": "gzip, deflate, br, zstd",
-                "Accept-Language": "zh-CN,zh;q=0.9",
-                Connection: "keep-alive",
-                Cookie: `Hm_lvt_d60e542115f2ca02adf147d409bb5f6b=${tools.timestamp10()}; Hm_lpvt_d60e542115f2ca02adf147d409bb5f6b=${tools.timestamp10()}`,
-                "User-Agent": tools.randomUserAgent(),
-            },
-        };
+// 处理 iqnew 链接
+async function iqnew() {
+    const res = await fetchPage("https://www.iqnew.com/activity/");
+    if (!res) return;
 
-        const res = await this.fetchPage(options);
-        if (!res) return;
+    const $ = cheerio.load(res);
+    const urlArr = [];
 
-        const $ = cheerio.load(res);
+    $("ul.list-item li").each((_, element) => {
+        const date = $(element).find("span.time").text();
+        const href = $(element).find("a").attr("href");
 
-        const promises = $(".list-ul li").map(async (index, element) => {
-            const title = $(element).find(".soft-title").text().trim();
-            const link = $(element).find(".soft-title").attr("href");
-            let date = $(element).find(".list-ca").text().trim().replace("发布时间：", "");
+        if (date === formattedDate) {
+            urlArr.push(`https://www.iqnew.com${href}`);
+        }
+    });
 
-            if (date !== this.formattedDate) return;
-
-            try {
-                const pageRes = await this.fetchPage({ url: link, headers: options.headers });
-                const $1 = cheerio.load(pageRes);
-                const articleContent = $1(".article-content");
-                const newTitle = $1(".yp-name").text().trim();
-
-                this.newHtml += `## ${newTitle}\n${articleContent.html()}\n\n`;
-            } catch (err) {
-                console.error("抓取新链接出错：", err);
-            }
-        }).get();
-
-        await Promise.all(promises);
-    }
-}
-
-class IQNewScraper extends Scraper {
-    async scrape() {
-        const url = "https://www.iqnew.com/activity/";
-        const headers = {
-            accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "accept-language": "zh-CN,zh;q=0.9",
-            "cache-control": "no-cache",
-            "Content-Type": "text/plain; charset=gbk",
-        };
-
-        let urlArr = [];
-        const res = await this.fetchPage({ url, headers, isArrayBuffer: true });
-        if (!res) return;
-
-        const $ = cheerio.load(res);
-        $("ul.list-item li").each((_, element) => {
-            const date = $(element).find("span.time").text();
-            const title = $(element).find("a").attr("title");
-            const href = $(element).find("a").attr("href");
-
-            if (date !== this.formattedDate) return;
-
-            urlArr.push(`https:///www.iqnew.com${href}`);
-        });
-
-        await Promise.all(
-            urlArr.map(async (link) => {
-                const pageRes = await this.fetchPage({ url: link, headers, isArrayBuffer: true });
-                const $1 = cheerio.load(pageRes);
-                const articleContent = $1(".content-intro.typo").remove(".time-count-down, .keyword.clearfix");
-
-                articleContent.find("img").each((_, img) => {
-                    $1(img).attr("src", `https://image.smallfawn.work/?url=${$1(img).attr("src")}`);
-                    $1(img).attr("referrerpolicy", "no-referrer");
-                });
-
-                const remainingContent = articleContent.html().replace(/\t/g, "");
-                const newTitle = $1(".content-intro.typo strong").text().trim();
-
-                this.newHtml += `## ${newTitle}\n${remainingContent}\n\n`;
-            })
-        );
-    }
-}
-
-class KumaoScraper extends Scraper {
-    async scrape() {
-        const headers = {
-            accept: "*/*",
-            "accept-language": "zh-CN,zh;q=0.9",
-            priority: "u=1, i",
-            "sec-ch-ua": "\"Microsoft Edge\";v=\"129\", \"Chromium\";v=\"129\"",
-        };
-
-        const res = await this.fetchPage({
-            url: "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
-            headers,
-            method: "POST"
-        });
-
-        if (!res?.code === 1) return;
-
-        for (let i of res.data) {
-            let time = tools.getDate(i.created * 1000);
-            if (time !== this.formattedDate) break;
-
-            const pageRes = await this.fetchPage({ url: `https://www.kumao6.com/article/${i.cid}`, headers });
+    await Promise.all(
+        urlArr.map(async (url) => {
+            const pageRes = await fetchPage(url);
             const $ = cheerio.load(pageRes);
-            const articleContent = $("article");
+            const articleContent = $(".content-intro.typo");
+            articleContent.find(".time-count-down, .keyword.clearfix").remove();
 
-            articleContent.find("img").each((_, img) => {
-                $(img).attr("src", `https://image.smallfawn.work/?url=${$(img).attr("src")}`);
-                $(img).attr("referrerpolicy", "no-referrer");
-            });
+            processImages($, articleContent);
+            const title = articleContent.find("strong").text().trim();
+            newHtml += `## ${title}\n${articleContent.html()}\n\n`;
+        })
+    );
+}
 
-            const html = articleContent.html().replace(/\t/g, "");
-            const newTitle = $("title").text().trim();
+// 处理 kumao 链接
+async function kumao() {
+    const res = await fetchPage(
+        "https://api.kumao6.com/contents/contentsList?searchParams=%7B%22type%22:%22post%22,%22istop%22:0%7D&page=1&limit=15&order=created",
+        { ...defaultHeaders, method: "POST" }
+    );
+    if (!res?.code) return;
 
-            this.newHtml += `## ${newTitle}\n${html}\n\n`;
-        }
+    for (let item of res.data) {
+        const time = tools.getDate(item.created * 1000);
+        if (time !== formattedDate) break;
+
+        const pageRes = await fetchPage(`https://www.kumao6.com/article/${item.cid}`);
+        const $ = cheerio.load(pageRes);
+        const articleContent = $("article");
+        const title = $("title").text();
+
+        processImages($, articleContent);
+        newHtml += `## ${title}\n${articleContent.html().replace(/\t/g, "")}\n\n`;
     }
 }
 
-class MainScraper {
-    constructor() {
-        this.scrapers = [
-            new IQNewScraper(),
-            new QQHJY6Scraper(),
-            new KumaoScraper()
-        ];
-    }
-
-    async run() {
-        for (let scraper of this.scrapers) {
-            await scraper.scrape();
-        }
-        await this.scrapers[0].saveArticle();
-    }
+// 主函数
+async function main() {
+    await iqnew();
+    await qqhjy6();
+    await kumao();
+    tools.saveArticle(formattedDate, newHtml);
 }
 
-const mainScraper = new MainScraper();
-mainScraper.run();
+main();
