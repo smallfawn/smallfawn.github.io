@@ -65,7 +65,26 @@ function saveArticle(name, data) {
 
     fs.writeFileSync(`spider/${name}.md`, data, { encoding: 'utf8' });
 }
+function readArticle(name) {
+    //如果存在则读取 否则返回null
+    if (!fs.existsSync(`spider/${name}.md`)) return null;
+    return fs.readFileSync(`spider/${name}.md`, { encoding: 'utf8' });
+}
+function getSticky(inputText) {
+    const match = inputText.match(/sticky:\s*(\d+)/);
+
+    if (match) {
+        const stickyValue = match[1]; // match[1] 包含了提取的值
+        console.log('sticky 的值为：', stickyValue); // 输出: sticky 的值为： 999
+        return stickyValue;
+
+    } else {
+        console.log('没有找到 sticky 的值');
+
+        return null;
+    }
+}
 const tools = {
-    randomUserAgent, saveArticle, timestamp10, timestamp13, request, randomInt, getDate
+    randomUserAgent, saveArticle, timestamp10, timestamp13, request, randomInt, getDate, readArticle, getSticky
 }
 export default tools

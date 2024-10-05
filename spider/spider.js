@@ -2,9 +2,9 @@ import * as cheerio from "cheerio";
 import tools from "./tools.js";
 
 const formattedDate = tools.getDate();
-let newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${formattedDate}\n`;
+let newHtml = ``;
 let crawledLinks = [];  // 用于存储爬取的链接和日期
-const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件", "做生意", "AI", "一键生成", "实战"];
+const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件", "做生意", "AI", "一键生成", "实战", "文案", "网名", "头像", "背景图"];
 function isTitleValid(title) {
 
     return passTitle.some(keyword => title.includes(keyword));
@@ -161,6 +161,18 @@ async function processResponse(res) {
 }
 // 主函数
 async function main() {
+    //时间戳改为昨天的时间戳
+    const yesterday = formattedDate - 24 * 60 * 60 * 1000
+    const yesterdayDate = tools.getDate(yesterday)
+    const yesterdayArticle = tools.readArticle(yesterdayDate)
+    let sticky = 999
+    if (yesterdayArticle) {
+        let yesterdaySticky = tools.getSticky(yesterdayArticle)
+        if (yesterdaySticky) {
+            sticky = Number(yesterdaySticky) + 1
+        }
+    }
+    newHtml += `---\nsticky: ${sticky}\n---\n# 爬取日期: ${formattedDate}\n`
     await iqnew();
     await qqhjy6();
     await kumao();
@@ -168,7 +180,6 @@ async function main() {
         console.log(`日期: ${link.date}, 标题: ${link.title}, 链接: ${link.link}`);
     });
     tools.saveArticle(formattedDate, newHtml)
-
 }
 
 main();
