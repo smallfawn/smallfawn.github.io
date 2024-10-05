@@ -25,9 +25,9 @@ const defaultHeaders = {
 };
 
 // 简化工具函数调用，减少重复
-const fetchPage = async (url, headers = defaultHeaders) => {
+const fetchPage = async (url, headers = defaultHeaders, config = {}) => {
     try {
-        return await tools.request({ url, headers });
+        return await tools.request({ url, headers, ...config });
     } catch (err) {
         console.error(`抓取页面 ${url} 出错：`, err);
     }
@@ -77,7 +77,7 @@ async function qqhjy6() {
 
 // 处理 iqnew 链接
 async function iqnew() {
-    const res = await fetchPage("https://www.iqnew.com/activity/");
+    const res = await fetchPage("https://www.iqnew.com/activity/", defaultHeaders, { isArrayBuffer: true });
     if (!res) return;
 
     const $ = cheerio.load(res);
@@ -101,7 +101,7 @@ async function iqnew() {
 
     await Promise.all(
         urlArr.map(async (url) => {
-            const pageRes = await fetchPage(url);
+            const pageRes = await fetchPage(url, defaultHeaders, { isArrayBuffer: true });
             const $ = cheerio.load(pageRes);
             const articleContent = $(".content-intro.typo");
             articleContent.find(".time-count-down, .keyword.clearfix").remove();
