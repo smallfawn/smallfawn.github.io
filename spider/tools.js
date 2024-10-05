@@ -60,12 +60,12 @@ function getDate(time = "") {
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
 }
-function savaArticle(name, data) {
+function saveArticle(name, data) {
 
 
     fs.writeFileSync(`spider/${name}.md`, data, { encoding: 'utf8' });
 }
 const tools = {
-    randomUserAgent, savaArticle, timestamp10, timestamp13, request, randomInt, getDate
+    randomUserAgent, saveArticle, timestamp10, timestamp13, request, randomInt, getDate
 }
 export default tools
