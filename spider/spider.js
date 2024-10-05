@@ -62,13 +62,13 @@ async function qqhjy6() {
             const title = $1(".yp-name").text().trim();
             if (isTitleValid(title)) {
                 console.log(`跳过标题为 ${title} 的链接，因为在屏蔽列表中`);
+            } else {
+                crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
 
-                return;
+                processImages($1, articleContent);
+                newHtml += `## ${title}\n${articleContent.html()}\n\n`;
             }
-            crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
 
-            processImages($1, articleContent);
-            newHtml += `## ${title}\n${articleContent.html()}\n\n`;
         }
     }).get();
 
@@ -88,13 +88,14 @@ async function iqnew() {
         const href = $(element).find("a").attr("href");
 
         if (date === formattedDate) {
-            const link = `https://www.iqnew.com${href}`;
-            urlArr.push(link);
             if (isTitleValid($(element).find("a").attr("title"))) {
                 console.log(`跳过标题为 ${$(element).find("a").attr("title")} 的链接，因为在屏蔽列表中`);
-                return;
+            } else {
+                const link = `https://www.iqnew.com${href}`;
+                urlArr.push(link);
+                crawledLinks.push({ title: $(element).find("a").attr("title"), link, date });  // 保存爬取的链接和日期
+
             }
-            crawledLinks.push({ title: $(element).find("a").attr("title"), link, date });  // 保存爬取的链接和日期
         }
     });
 
@@ -147,15 +148,15 @@ async function processResponse(res) {
         const title = $("title").text();
         if (isTitleValid(title)) {
             console.log(`跳过标题为 ${title} 的链接，因为在屏蔽列表中`);
-            return;
+        } else {
+            // 保存爬取的链接和日期
+            crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });
+            processImages($, articleContent);
 
+            // 处理爬取到的 HTML 内容
+            newHtml += `## ${title}\n${articleContent.html().replace(/\t/g, "")}\n\n`;
         }
-        // 保存爬取的链接和日期
-        crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });
-        processImages($, articleContent);
 
-        // 处理爬取到的 HTML 内容
-        newHtml += `## ${title}\n${articleContent.html().replace(/\t/g, "")}\n\n`;
     }
 }
 // 主函数
