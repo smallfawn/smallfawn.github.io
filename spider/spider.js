@@ -167,9 +167,12 @@ async function main() {
     const yesterdayArticle = tools.readArticle(yesterdayDate)
     let sticky = 999
     if (yesterdayArticle) {
+        console.log(`存在昨天的日志`);
         let yesterdaySticky = tools.getSticky(yesterdayArticle)
         if (yesterdaySticky) {
             sticky = Number(yesterdaySticky) + 1
+        } else {
+            console.log(`未获取到昨天sticky值`);
         }
     }
     newHtml += `---\nsticky: ${sticky}\n---\n# 爬取日期: ${formattedDate}\n`
