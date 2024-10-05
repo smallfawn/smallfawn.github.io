@@ -6,6 +6,7 @@ let newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${formattedDate}\n`;
 let crawledLinks = [];  // 用于存储爬取的链接和日期
 const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件"];
 function isTitleValid(title) {
+
     return passTitle.some(keyword => title.includes(keyword));
 }
 
@@ -59,6 +60,11 @@ async function qqhjy6() {
             const $1 = cheerio.load(pageRes);
             const articleContent = $1(".article-content");
             const title = $1(".yp-name").text().trim();
+            if (isTitleValid(title)) {
+                console.log(`跳过标题为 ${title} 的链接，因为在屏蔽列表中`);
+
+                return;
+            }
             crawledLinks.push({ title, link, date });  // 保存爬取的链接和日期
 
             processImages($1, articleContent);
@@ -84,6 +90,10 @@ async function iqnew() {
         if (date === formattedDate) {
             const link = `https://www.iqnew.com${href}`;
             urlArr.push(link);
+            if (isTitleValid($(element).find("a").attr("title"))) {
+                console.log(`跳过标题为 ${$(element).find("a").attr("title")} 的链接，因为在屏蔽列表中`);
+                return;
+            }
             crawledLinks.push({ title: $(element).find("a").attr("title"), link, date });  // 保存爬取的链接和日期
         }
     });
@@ -135,7 +145,11 @@ async function processResponse(res) {
         const $ = cheerio.load(pageRes);
         const articleContent = $("article");
         const title = $("title").text();
+        if (isTitleValid(title)) {
+            console.log(`跳过标题为 ${title} 的链接，因为在屏蔽列表中`);
+            return;
 
+        }
         // 保存爬取的链接和日期
         crawledLinks.push({ title, link: `https://www.kumao6.com/article/${item.cid}`, date: time });
         processImages($, articleContent);
@@ -151,15 +165,6 @@ async function main() {
     await kumao();
     crawledLinks.forEach(link => {
         console.log(`日期: ${link.date}, 标题: ${link.title}, 链接: ${link.link}`);
-
-        // 检查标题中是否包含 `passTitle` 数组中的任意一项
-        passTitle.forEach((keyword, index) => {
-            if (link.title.includes(keyword)) {
-                // 如果标题中包含关键词，则从数组中删除该关键词
-                console.log(`标题 "${link.title}" 包含关键词 "${keyword}"，将其从 passTitle 中删除。`);
-                passTitle.splice(index, 1);
-            }
-        });
     });
     tools.saveArticle(formattedDate, newHtml)
 
