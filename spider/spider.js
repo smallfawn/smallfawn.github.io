@@ -4,6 +4,10 @@ import tools from "./tools.js";
 const formattedDate = tools.getDate();
 let newHtml = `---\nsticky: 999\n---\n# 爬取日期: ${formattedDate}\n`;
 let crawledLinks = [];  // 用于存储爬取的链接和日期
+const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件"];
+function isTitleValid(title) {
+    return passTitle.some(keyword => title.includes(keyword));
+}
 
 // 公用请求头
 const defaultHeaders = {
@@ -145,14 +149,20 @@ async function main() {
     await iqnew();
     await qqhjy6();
     await kumao();
-
-    tools.saveArticle(formattedDate, newHtml);
-
-    // 输出爬取的链接和日期
-    console.log("爬取的链接和日期：");
     crawledLinks.forEach(link => {
         console.log(`日期: ${link.date}, 标题: ${link.title}, 链接: ${link.link}`);
+
+        // 检查标题中是否包含 `passTitle` 数组中的任意一项
+        passTitle.forEach((keyword, index) => {
+            if (link.title.includes(keyword)) {
+                // 如果标题中包含关键词，则从数组中删除该关键词
+                console.log(`标题 "${link.title}" 包含关键词 "${keyword}"，将其从 passTitle 中删除。`);
+                passTitle.splice(index, 1);
+            }
+        });
     });
+    tools.saveArticle(formattedDate, newHtml)
+
 }
 
 main();
