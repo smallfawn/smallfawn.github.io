@@ -12,10 +12,7 @@
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@smallfawn/vuepress-plugin-analytics": "^1.0.9",
-    "@smallfawn/vuepress-plugin-busuanzi": "^1.1.0",
     "@smallfawn/vuepress-plugin-copyright": "^1.0.3",
-    "@smallfawn/vuepress-plugin-googleadsense": "^1.1.1",
     "@smallfawn/vuepress-plugin-hitokoto": "^1.0.5",
     "@vuepress/bundler-vite": "2.0.0-rc.17",
     "element-plus": "^2.8.4",
