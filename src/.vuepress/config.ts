@@ -1,7 +1,6 @@
 import { defineUserConfig } from "vuepress";
 
 import theme from "./theme.js";
-import googleAdSensePlugin from "@smallfawn/vuepress-plugin-googleadsense";
 import hitokotoPlugin from "@smallfawn/vuepress-plugin-hitokoto";
 import copyrightPlugin from "@smallfawn/vuepress-plugin-copyright";
 export default defineUserConfig({
@@ -13,9 +12,6 @@ export default defineUserConfig({
   title: "smallfawn",
   description: "smallfawn",
   plugins: [
-    googleAdSensePlugin({
-      id: "ca-pub-2247483547544632",
-    }),
     hitokotoPlugin({ type: "a" }),
     copyrightPlugin({
       copyrightText: "\n\n转载自: smallfawn 地址: https://smallfawn.github.io",
