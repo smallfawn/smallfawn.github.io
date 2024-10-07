@@ -4,7 +4,7 @@ import tools from "./tools.js";
 const formattedDate = tools.getDate();
 let newHtml = ``;
 let crawledLinks = [];  // 用于存储爬取的链接和日期
-const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件", "做生意", "AI", "一键生成", "实战", "文案", "网名", "头像", "背景图","引流推广"];
+const passTitle = ["无人直播", "无人带货", "变现", "0基础", "月入过万", "月入过千", "创作者平台", "源码", "无人卖货", "创业", "自媒体", "主题小组件", "做生意", "AI", "一键生成", "实战", "文案", "网名", "头像", "背景图","引流推广","网赚"];
 function isTitleValid(title) {
 
     return passTitle.some(keyword => title.includes(keyword));
